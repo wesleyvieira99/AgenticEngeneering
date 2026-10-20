@@ -41,6 +41,8 @@ def main():
     assert client.get('/api/runs/'+result['id'],headers=orbit).status_code==404
     stream=client.get('/api/runs/'+result['id']+'/events',headers=acme)
     assert stream.status_code==200 and 'event: done' in stream.text
+    asynchronous=run('Qual o prazo de primeira resposta para um incidente P1?', 'async')
+    assert asynchronous['status']=='completed' and asynchronous['sources'],asynchronous
     action=run('/ticket Verificar incidente P1 sintético', 'agent')
     assert action['status']=='awaiting_approval',action
     approval='/api/approvals/'+action['approval_id']+'/approve'
@@ -48,8 +50,8 @@ def main():
     first=client.post(approval,headers=acme,json={});first.raise_for_status()
     second=client.post(approval,headers=acme,json={});second.raise_for_status()
     assert first.json()['ticket_id']==second.json()['ticket_id']
-    report={'health':health,'mode_validation':args.mode,'rag':result,'action':action,
-            'ticket':first.json(),'checks':['HTTP login','ingestion','answer with retrieved sources','SSE events','tenant isolation','approval isolation','idempotent ticket'],
+    report={'health':health,'mode_validation':args.mode,'rag':result,'async_worker':asynchronous,'action':action,
+            'ticket':first.json(),'checks':['HTTP login','ingestion','answer with retrieved sources','SSE events','persistent async worker','tenant isolation','approval isolation','idempotent ticket'],
             'quality_note':'Smoke validates plumbing and constraints, not broad semantic correctness.'}
     path=Path(args.output);path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(report,indent=2,ensure_ascii=False))
     print(json.dumps({'status':'passed','provider':health['mode'],'ticket_id':first.json()['ticket_id'],'evidence':str(path)}))

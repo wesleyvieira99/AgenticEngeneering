@@ -59,7 +59,7 @@ def main():
                           'abstention_accuracy':sum(r['abstained'] for r in selected if r['abstention_expected']),
                           'mean_latency_ms':sum(r['duration_ms'] for r in selected)/len(selected)})
     report={'mode':'deterministic','embedding':'hash-384-v1','dataset':'datasets/eval.jsonl','dataset_size':len(tasks),
-            'limitations':['Small synthetic held-out set','Substring checks are not groundedness scores','Deterministic latency does not estimate LLM latency','Direct baseline has no retrieval by design','No LLM-as-judge used'],
+            'limitations':['Small synthetic regression set used during development; independent holdout still required','Substring checks are not groundedness scores','Deterministic latency does not estimate LLM latency','Direct baseline has no retrieval by design','No LLM-as-judge used'],
             'summaries':summaries,'rows':rows}
     out=ROOT/'artifacts/evaluation.json';out.parent.mkdir(exist_ok=True);out.write_text(json.dumps(report,indent=2,ensure_ascii=False))
     print(json.dumps(summaries,indent=2))
