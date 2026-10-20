@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f7f8fb"><meta name="description" content="Atlas: formação prática em engenharia de IA. 28 capítulos, laboratórios interativos, código real e decisões de produção.">
+  <title>Atlas — Engenharia de IA, por dentro.</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header class="topbar">
+ <button class="icon-btn mobile-menu" id="menu-button" aria-label="Abrir índice" aria-expanded="false">☰</button>
+ <a class="brand" href="#/inicio" aria-label="Atlas — início"><span class="brand-mark">A<span>·</span></span><strong>atlas</strong><span class="brand-divider"></span><span class="brand-caption">engenharia de IA</span></a>
+ <button class="search-button" id="search-button"><span class="search-icon">⌕</span><span>Buscar no manual</span><kbd>⌘ K</kbd></button>
+ <nav class="top-actions" aria-label="Ações globais"><a href="https://github.com/wesleyvieira99/AgenticEngeneering" target="_blank" rel="noopener" class="repo-link">Código ↗</a><button id="theme-button" class="icon-btn" aria-label="Alternar modo claro ou escuro">◐</button></nav>
+</header>
+<aside id="sidebar" class="sidebar" aria-label="Índice do manual"></aside>
+<div id="scrim" class="scrim" hidden></div>
+<main id="conteudo" tabindex="-1"></main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="search-dialog" aria-labelledby="search-label"><div class="search-head"><label id="search-label" class="sr-only" for="global-search">Buscar em todos os capítulos</label><span>⌕</span><input type="search" id="global-search" placeholder="Um conceito, uma dúvida, um trecho…" autocomplete="off"><button id="close-search" class="icon-btn" aria-label="Fechar busca">✕</button></div><div id="search-results" class="search-results"></div><div class="search-footer">Pesquisa local · conteúdo completo · nenhuma consulta enviada</div></dialog>
+<noscript>Ative JavaScript para navegar pelo manual interativo. Os arquivos-fonte e o conteúdo estão disponíveis no repositório.</noscript>
+</body></html>
