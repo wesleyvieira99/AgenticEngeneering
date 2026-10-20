@@ -1,0 +1,13 @@
+{
+  "files": {
+    "index.html": "b0bb147262e8eec27a1008701307ee963feab22fdb6889a9316da051edb8e9da",
+    "styles.css": "5e615057d55fdea073d83141999ef5aaae68e249a4253f5d6d8604bdb8b02015",
+    "app.js": "7dfa09af6118a1dcc0327917f92805b39a44173999ea15c42fc18d0adb5c3f01",
+    "math.mjs": "d8684ec9f0f1effd2c902544efbac8932b83c57f4d207afef4f528d0ed503941",
+    "favicon.svg": "9fd1253723c7a64742057be3769ba6e0fb4210042e1bacd908ba4d0e05cd29dc",
+    "data.json": "a748a0db4d04ee1a4c243f9bead41b8ae7e3804430d08697b9ffb267409b2117"
+  },
+  "chapters": 28,
+  "snippets": 12,
+  "revision": "bafce1f469b507e27f6fd74b08595ccd135b5d4f"
+}
