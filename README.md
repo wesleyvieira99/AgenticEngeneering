@@ -36,6 +36,19 @@ Pergunte “Qual o prazo de primeira resposta para um incidente P1?”. Inspecio
 
 Encerre clientes com Ctrl+C e banco/API/worker com `make stop`; o volume permanece. Se a porta8000 estiver ocupada, `ATLAS_API_PORT=8010 make dev`, selecione essa URL no login e use `ATLAS_API_URL=http://localhost:8010 make seed`.
 
+### Demonstração local na mesma origem
+
+Para navegadores integrados que limitem requisições entre origens, sirva o build Angular e a API pelo mesmo endereço. Mantenha API e worker ativos; para usar Ollama nativo, siga [Inferência local real](#inferência-local-real). Com a API disponível na porta 8012:
+
+```sh
+npm --prefix apps/web-angular run build
+node scripts/serve-local.mjs --client angular --port 5180 --api http://127.0.0.1:8012
+```
+
+Abra `http://127.0.0.1:5180`. O Angular configura automaticamente esse endereço para login e chamadas à API. O servidor escuta somente em loopback e encaminha `/api`, preservando autenticação e streaming; não é necessário alterar CORS. Se omitir `--api`, o destino padrão é `http://127.0.0.1:8000`. O script serve arquivos já compilados: repita o build após editar o cliente.
+
+Valide login, uma pergunta com fontes e `/ticket Título` seguido de aprovação. `curl -i http://127.0.0.1:5180/api/runs` sem bearer deve retornar 401. Ctrl+C encerra o servidor de demonstração; API, worker e Ollama têm processos próprios. Esse servidor é destinado à demonstração local, não ao deploy de produção.
+
 ### Sem Docker
 
 Após `make setup`, execute `make api` (SQLite local); em outro terminal `make worker`; então `make seed`. Esse caminho testa a aplicação, mas não valida pgvector nem concorrência PostgreSQL. O manual é independente: `make manual-dev`, abra `http://localhost:4173`.

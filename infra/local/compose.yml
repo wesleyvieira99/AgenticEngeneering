@@ -22,6 +22,7 @@ services:
       ATLAS_MODE: ${ATLAS_MODE:-deterministic}
       ATLAS_TOKEN_SECRET: ${ATLAS_TOKEN_SECRET:-local-compose-change-this-32-character-secret}
       ATLAS_DEMO_PASSWORD: ${ATLAS_DEMO_PASSWORD:-atlas-local-only}
+      ATLAS_CORS_ORIGINS: ${ATLAS_CORS_ORIGINS:-http://localhost:5173,http://localhost:4200,http://127.0.0.1:5173,http://127.0.0.1:4200}
       ATLAS_EMBEDDING_MODE: ${ATLAS_EMBEDDING_MODE:-hash}
       ATLAS_EMBEDDING_MODEL: ${ATLAS_EMBEDDING_MODEL:-all-minilm}
       ATLAS_MODEL: ${ATLAS_MODEL:-qwen2.5:0.5b}
