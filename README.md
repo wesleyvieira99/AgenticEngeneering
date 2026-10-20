@@ -2,11 +2,11 @@
 
 **Uma plataforma de conhecimento e operações com IA, acompanhada por um manual interativo em português.** O nome deste repositório é intencionalmente `AgenticEngeneering`.
 
-[Manual local](apps/manual/README.md) · [Matriz de cobertura](docs/coverage.csv) · [Evidências](docs/verification.md) · [Retomada](CHECKPOINT.md)
+[Manual publicado](https://wesleyvieira99.github.io/AgenticEngeneering/) · [Executar localmente](apps/manual/README.md) · [Matriz de cobertura](docs/coverage.csv) · [Evidências](docs/verification.md) · [Retomada](CHECKPOINT.md)
 
 Atlas tem API FastAPI, documentos por tenant, busca híbrida com pgvector, respostas com fontes, streaming, memória opt-in, oito perfis de arquitetura, gateway de modelos, limites, fila persistente e criação real de tickets com aprovação/idempotência. React e Angular são clientes independentes. O manual funciona sem chaves e contém 28 capítulos, quizzes, anotações, progresso exportável, código real e simuladores identificados.
 
-**Publicação:** código enviado; GitHub Actions e Pages bloqueados pela conta do GitHub antes de iniciar os jobs. [Evidência e retomada](docs/deploy.md). O manual funciona localmente com `make manual-dev`; a URL Pages ainda não está publicada.
+**Manual publicado:** [Abrir o manual Atlas](https://wesleyvieira99.github.io/AgenticEngeneering/) — GitHub Pages verificado com HTTP 200, a partir do artefato pré-compilado na branch `gh-pages` com `.nojekyll`. [Primeira publicação verificada](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39516397350) · [Atualizar o site](docs/deploy.md). A CI personalizada continua bloqueada por cobrança da conta, sem executar os testes no GitHub; os testes locais estão registrados separadamente. Nenhuma configuração financeira foi alterada.
 
 ## Começar: modo determinístico
 

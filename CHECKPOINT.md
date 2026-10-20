@@ -14,15 +14,20 @@ Atualizado em 20/10/2026. O repositório foi encontrado vazio e implementado em 
 
 ## Publicação
 
-Código enviado e conferido em [wesleyvieira99/AgenticEngeneering](https://github.com/wesleyvieira99/AgenticEngeneering). A revisão executável verificada é `e2d711173726ee546b2a45614c4cd1c2acbeebcf`; atualizações posteriores registram evidências e fixam o runner Ubuntu24.04.
+Código enviado e conferido em [wesleyvieira99/AgenticEngeneering](https://github.com/wesleyvieira99/AgenticEngeneering). O [manual está publicado](https://wesleyvieira99.github.io/AgenticEngeneering/) e respondeu HTTP 200. Pages informa `status: built`, com fonte `gh-pages`, diretório `/` e `build_type: legacy`.
 
-**CI remota e Pages bloqueados externamente, sem nenhum step executado.** O GitHub informou: “The job was not started because your account is locked due to a billing issue.” [CI](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39507360102) · [Pages](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39507595610). A URL Pages respondeu404, portanto o manual **não foi publicado**. Não confundir os testes locais aprovados com CI remota aprovada. [Registro estruturado](docs/evidence/github-publication.json).
+- Fonte da primeira publicação verificada: `bafce1f469b507e27f6fd74b08595ccd135b5d4f`.
+- Commit dessa primeira publicação em `gh-pages`: `b3aad0e36b681aacde1d51802d896a093deffafd`.
+- [Primeira execução de publicação concluída](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39516397350): `39516397350`.
+- [CI personalizada](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39515853377): `39515853377`, bloqueada por cobrança antes de executar qualquer step. A publicação bem-sucedida não comprova aprovação dessa CI.
 
-Pages está configurado para Actions e os workflows estão preparados. Publicação por branch também depende de Actions, conforme documentação oficial. Nenhuma configuração financeira da conta foi alterada.
+A publicação usa artefatos estáticos já compilados e `.nojekyll`. A [exceção documentada pelo GitHub](https://github.blog/changelog/2024-07-08-pages-legacy-worker-sunset/) foi verificada nesta conta: esse caminho publicou mesmo com a CI personalizada indisponível. A afirmação anterior de que mudar para branch nunca ajudaria estava incompleta. Nenhuma configuração financeira foi alterada e nenhum recurso pago foi criado. [Registro estruturado](docs/evidence/github-publication.json).
+
+A revisão atualmente servida pode ser conferida no [manifest público](https://wesleyvieira99.github.io/AgenticEngeneering/manifest.json); o registro acima preserva a primeira publicação verificada.
 
 ## Bloqueios externos
 
-- GitHub CI/Pages: o proprietário precisa resolver o bloqueio de cobrança da conta. Não se trata de falha nos testes, pois o runner não iniciou.
+- GitHub CI personalizada: o proprietário precisa resolver o bloqueio de cobrança para executar os workflows de testes. O runner não iniciou; o manual publicado em Pages está disponível.
 
 - Bedrock/LiteLLM pagos: credenciais temporárias/endpoint, acesso ao modelo e tabela de preços aprovados.
 - Langfuse externo: endpoint, credenciais e confirmação de recebimento.
@@ -31,7 +36,9 @@ Pages está configurado para Actions e os workflows estão preparados. Publicaç
 
 ## Próximo passo concreto
 
-Depois de liberar Actions na conta, executar `gh workflow run ci.yml --repo wesleyvieira99/AgenticEngeneering --ref main`. A conclusão bem-sucedida na branch principal publica o manual. Conferir os dois runs, abrir a URL e atualizar este checkpoint. Enquanto isso: `make manual-dev` serve o manual local sem credenciais.
+Para novas versões do manual, executar build e validação em uma revisão limpa, copiar `apps/manual/dist/.` — incluindo `.nojekyll` — para um clone da branch `gh-pages`, fazer commit e push normal, sem force. Seguir os comandos em [deploy](docs/deploy.md), acompanhar a publicação e verificar a URL e o manifest públicos.
+
+A retomada da CI personalizada é independente: após resolver a cobrança, executar os testes remotos. Para voltar à publicação automática por workflow, alterar antes Pages para `build_type: workflow` e então disparar a CI na branch `main`. `make manual-dev` continua disponível para estudo local.
 
 ## Comandos de retomada
 

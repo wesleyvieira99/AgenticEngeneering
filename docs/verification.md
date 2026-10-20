@@ -20,7 +20,18 @@ Registro da sessão de 2026-10-20. Ambiente: macOS Apple Silicon24GB, Python3.12
 | Chromium desktop/mobile | 9 cenários: jornadas, cancelamento/retomada, troca de tenant, estudo e nove laboratórios | [log](evidence/e2e.txt) |
 | Manual | 28 capítulos, 19 pontos/capítulo, 12 snippets e 108 linhas sincronizadas | [build](evidence/manual-build.txt) |
 | Fontes externas | 42/42 URLs acessíveis no momento da verificação; não é garantia de disponibilidade futura | [auditoria](evidence/source-check-summary.json) |
-| GitHub CI/Pages | Bloqueio de conta por cobrança; zero steps executados; Pages404 | [evidência](evidence/github-publication.json) |
+| GitHub Pages | Publicado via `gh-pages` + `.nojekyll`; status `built`, HTTP 200; run `39516397350` concluída | [site](https://wesleyvieira99.github.io/AgenticEngeneering/) · [execução](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39516397350) · [evidência](evidence/github-publication.json) |
+| GitHub CI personalizada | Run `39515853377` bloqueada por cobrança; zero steps executados | [execução](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39515853377) · [evidência](evidence/github-publication.json) |
+
+## Primeira publicação verificada
+
+Artefato gerado de `bafce1f469b507e27f6fd74b08595ccd135b5d4f` e publicado no commit `gh-pages` `b3aad0e36b681aacde1d51802d896a093deffafd`. O manual foi validado localmente também sob `/AgenticEngeneering/`: acesso direto e recarga de rota profunda, assets relativos, snippets vinculados à revisão, interação vetorial e manifest; zero 404 ou erros JavaScript nesse smoke test.
+
+A verificação pública confirmou hashes SHA-256 idênticos ao build local para sete arquivos, incluindo `manifest.json`, e a revisão-fonte em `data.json`. A página inicial, um capítulo e a recarga profunda também foram abertos no navegador público. Os detalhes estão em [github-publication.json](evidence/github-publication.json).
+
+O Pages serve os arquivos estáticos já compilados, incluindo `.nojekyll`; essa [exceção oficial](https://github.blog/changelog/2024-07-08-pages-legacy-worker-sunset/) permitiu publicar apesar do bloqueio dos workflows personalizados. O sucesso observado é de publicação. A CI personalizada permanece não executada, e nenhuma configuração financeira foi alterada.
+
+A revisão atualmente servida consta no [manifest público](https://wesleyvieira99.github.io/AgenticEngeneering/manifest.json); a evidência versionada preserva a primeira publicação verificada.
 
 ## Qualidade e limites da evidência
 

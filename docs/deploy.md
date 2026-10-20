@@ -2,23 +2,47 @@
 
 ## GitHub Pages
 
-A workflow Pages publica `apps/manual/dist`. Usa rotas hash, assets relativos e índice estático no caminho exato `/AgenticEngeneering/`. O build extrai snippets do código real. Pages não executa Python, não guarda documentos e não é backend dos clientes. Veja status da Action e abra a URL publicada antes de declarar publicação concluída.
+O [manual está publicado](https://wesleyvieira99.github.io/AgenticEngeneering/) e foi verificado com HTTP 200. Pages serve o artefato estático `apps/manual/dist`, com rotas hash, assets relativos e índice no caminho exato `/AgenticEngeneering/`. O build extrai snippets do código real. API, workers e banco têm hospedagem separada; Pages não os executa.
 
 ### Estado verificado em 20/10/2026
 
-O push foi concluído e Pages configurado, mas CI e publicação não iniciaram: o GitHub retornou bloqueio de conta por cobrança. A URL prevista `https://wesleyvieira99.github.io/AgenticEngeneering/` respondeu404. [Evidência](evidence/github-publication.json). Não houve tentativa de alterar pagamento ou criar infraestrutura paga.
+A publicação usa a branch `gh-pages`, diretório `/`, com `.nojekyll`; a API do GitHub informa `build_type: legacy` e `status: built`. A [execução `39516397350`](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39516397350) terminou com sucesso. Essa primeira publicação utilizou o commit `b3aad0e36b681aacde1d51802d896a093deffafd`, gerado da revisão-fonte `bafce1f469b507e27f6fd74b08595ccd135b5d4f`. [Evidência dessa primeira publicação](evidence/github-publication.json). A revisão atualmente servida consta no [manifest público](https://wesleyvieira99.github.io/AgenticEngeneering/manifest.json).
 
-A [documentação oficial de publishing sources](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) esclarece que inclusive publicação por branch usa Actions. Mudar a fonte não elimina essa dependência. O manual estático está construído e pode ser servido com `make manual-dev`.
+A [CI personalizada `39515853377`](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39515853377) continua bloqueada pela cobrança da conta, sem nenhum step executado. Não confundir o sucesso de publicação com aprovação dos testes nessa CI. Os testes locais e o build do manual foram executados separadamente.
 
-Após regularizar a conta:
+A afirmação anterior de que publicação por branch não poderia ajudar estava incompleta. O [changelog oficial do GitHub](https://github.blog/changelog/2024-07-08-pages-legacy-worker-sunset/) documenta a exceção: uma branch com `.nojekyll` pode publicar diretamente arquivos estáticos previamente compilados quando Actions está indisponível. Esse caminho foi confirmado nesta conta. Nenhuma configuração financeira foi alterada e nenhum recurso pago foi criado.
+
+### Atualizar o manual publicado
+
+Execute na raiz de uma cópia limpa da revisão-fonte que deseja publicar, com Python 3.12, Node e Git instalados. O diretório temporário abaixo é um clone separado, dedicado somente à publicação. Preserve o `.nojekyll` do build e não copie código do backend ou segredos.
+
+```sh
+# Confirme revisão e ausência de alterações locais antes do build.
+git status --short
+git rev-parse HEAD
+make docs-build
+source_revision=$(git rev-parse HEAD)
+deploy_dir=$(mktemp -d "${TMPDIR:-/tmp}/atlas-pages.XXXXXX")
+git clone --single-branch --branch gh-pages https://github.com/wesleyvieira99/AgenticEngeneering.git "$deploy_dir"
+cp -a apps/manual/dist/. "$deploy_dir/"
+git -C "$deploy_dir" status --short
+git -C "$deploy_dir" add .
+git -C "$deploy_dir" commit -m "docs: publish manual from $source_revision"
+git -C "$deploy_dir" push origin gh-pages
+```
+
+Se não houver diferença no artefato, não há novo commit a publicar. Revise arquivos removidos ou renomeados no build para que não permaneçam desnecessariamente na branch. Não use force push. Após o push, acompanhe a publicação do Pages, abra a URL e compare `manifest.json` e a revisão em `data.json` com o build local. Um push concluído, sozinho, não comprova deploy. Remova o clone temporário somente depois de concluir a verificação.
+
+### Retomar workflows após resolver a cobrança
+
+O workflow `Publish manual` permanece preparado como alternativa. Para voltar a esse caminho, primeiro configure Pages como **GitHub Actions** (`build_type: workflow`); só depois execute a CI na `main`:
 
 ```sh
 gh workflow run ci.yml --repo wesleyvieira99/AgenticEngeneering --ref main
 gh run list --repo wesleyvieira99/AgenticEngeneering
-# Após CI aprovada, acompanhar Publish manual e conferir a URL real.
 ```
 
-O runner foi fixado em Ubuntu24.04 para evitar a migração anunciada do label ubuntu-latest durante esta entrega. A retomada da CI remota continua pendente; não foi validada em um runner GitHub.
+Com CI aprovada, o workflow de publicação usa a mesma revisão verificada. Acompanhe os dois resultados e confira novamente a URL. Os runners dos workflows personalizados estão fixados em Ubuntu 24.04; a execução da CI remota ainda não foi validada. Até essa mudança, mantenha a fonte atual `gh-pages` e atualize os artefatos pelo procedimento acima. Para servir localmente: `make manual-dev`.
 
 ## Local com Compose
 
