@@ -1,0 +1,93 @@
+{
+  "recorded_at": "2026-10-20T22:14:43.938Z",
+  "api": "http://127.0.0.1:8011",
+  "mode": "deterministic",
+  "checks": [
+    {
+      "framework": "react",
+      "keyboard_skip": true,
+      "unix_dates": true,
+      "source_anchor": true,
+      "dark_theme": true,
+      "mobile_views": [
+        {
+          "view": "Workspace",
+          "viewport": 390,
+          "document": 390
+        },
+        {
+          "view": "Documentos",
+          "viewport": 390,
+          "document": 390
+        },
+        {
+          "view": "Aprovações",
+          "viewport": 390,
+          "document": 390
+        },
+        {
+          "view": "Histórico",
+          "viewport": 390,
+          "document": 390
+        },
+        {
+          "view": "Consumo",
+          "viewport": 390,
+          "document": 390
+        },
+        {
+          "view": "Configurações",
+          "viewport": 390,
+          "document": 390
+        }
+      ],
+      "mobile_logout": true,
+      "storage_only_theme": true,
+      "unavailable_api_error": true,
+      "page_errors": []
+    },
+    {
+      "framework": "angular",
+      "keyboard_skip": true,
+      "unix_dates": true,
+      "source_anchor": true,
+      "dark_theme": true,
+      "mobile_views": [
+        {
+          "view": "Workspace",
+          "viewport": 390,
+          "document": 390
+        },
+        {
+          "view": "Documentos",
+          "viewport": 390,
+          "document": 390
+        },
+        {
+          "view": "Aprovações",
+          "viewport": 390,
+          "document": 390
+        },
+        {
+          "view": "Histórico",
+          "viewport": 390,
+          "document": 390
+        },
+        {
+          "view": "Consumo",
+          "viewport": 390,
+          "document": 390
+        },
+        {
+          "view": "Configurações",
+          "viewport": 390,
+          "document": 390
+        }
+      ],
+      "mobile_logout": true,
+      "storage_only_theme": true,
+      "unavailable_api_error": true,
+      "page_errors": []
+    }
+  ]
+}

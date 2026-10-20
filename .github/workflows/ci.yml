@@ -1,0 +1,53 @@
+name: Atlas CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.0-pg16@sha256:a132765ec351c65111b5b675928a3a0515a466a40f97277329db8b8209ad8bc9
+        env:
+          POSTGRES_USER: atlas
+          POSTGRES_PASSWORD: atlas-ci-only
+          POSTGRES_DB: atlas
+        ports: [5432:5432]
+        options: >-
+          --health-cmd "pg_isready -U atlas" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with: {python-version: '3.12.12'}
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with: {node-version: '24.3.0'}
+      - name: Install locked dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.lock
+          .venv/bin/pip install --no-deps -e .
+          npm ci --prefix apps/web-react
+          npm ci --prefix apps/web-angular
+          npm ci --prefix tests/e2e
+          cd tests/e2e && npx playwright install --with-deps chromium
+      - name: Unit, contracts, evaluations, builds, links and snippets
+        run: make verify
+      - name: PostgreSQL integration
+        env:
+          ATLAS_TEST_DATABASE_URL: postgresql+psycopg://atlas:atlas-ci-only@localhost:5432/atlas
+        run: make test-integration
+      - name: Both clients and manual in real Chromium
+        run: make test-e2e
+      - name: Numeric lab
+        run: .venv/bin/python labs/foundations/main.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: atlas-verification
+          path: artifacts/
+          retention-days: 14

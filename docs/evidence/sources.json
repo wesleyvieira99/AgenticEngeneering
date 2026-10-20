@@ -1,0 +1,338 @@
+[
+  {
+    "key": "python",
+    "title": "Python: tutorial",
+    "url": "https://docs.python.org/3.12/tutorial/",
+    "status": 200,
+    "final_url": "https://docs.python.org/3.12/tutorial/",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "asyncio",
+    "title": "Python: tarefas e corrotinas",
+    "url": "https://docs.python.org/3.12/library/asyncio-task.html",
+    "status": 200,
+    "final_url": "https://docs.python.org/3.12/library/asyncio-task.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "typescript",
+    "title": "TypeScript handbook",
+    "url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+    "status": 200,
+    "final_url": "https://www.typescriptlang.org/docs/handbook/intro.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "git",
+    "title": "Pro Git",
+    "url": "https://git-scm.com/book/en/v2",
+    "status": 200,
+    "final_url": "https://git-scm.com/book/en/v2",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "http",
+    "title": "HTTP semantics — RFC 9110",
+    "url": "https://www.rfc-editor.org/rfc/rfc9110",
+    "status": 200,
+    "final_url": "https://www.rfc-editor.org/info/rfc9110/",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "fastapi",
+    "title": "FastAPI tutorial",
+    "url": "https://fastapi.tiangolo.com/tutorial/",
+    "status": 200,
+    "final_url": "https://fastapi.tiangolo.com/tutorial/",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "pydantic",
+    "title": "Pydantic models",
+    "url": "https://docs.pydantic.dev/latest/concepts/models/",
+    "status": 200,
+    "final_url": "https://pydantic.dev/docs/validation/latest/concepts/models/",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "numpy",
+    "title": "NumPy: arrays e tipos",
+    "url": "https://numpy.org/doc/stable/user/basics.types.html",
+    "status": 200,
+    "final_url": "https://numpy.org/doc/stable/user/basics.types.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "ml",
+    "title": "Scikit-learn: avaliação",
+    "url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+    "status": 200,
+    "final_url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "leakage",
+    "title": "Scikit-learn: armadilhas comuns",
+    "url": "https://scikit-learn.org/stable/common_pitfalls.html",
+    "status": 200,
+    "final_url": "https://scikit-learn.org/stable/common_pitfalls.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "tokens",
+    "title": "Hugging Face: tokenizers",
+    "url": "https://huggingface.co/docs/tokenizers/index",
+    "status": 200,
+    "final_url": "https://huggingface.co/docs/tokenizers/index",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "transformer",
+    "title": "Vaswani et al.: Attention Is All You Need",
+    "url": "https://arxiv.org/abs/1706.03762",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/1706.03762",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "pytorch",
+    "title": "PyTorch: scaled dot-product attention",
+    "url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "status": 200,
+    "final_url": "https://docs.pytorch.org/docs/stable/generated/torch.nn.functional.scaled_dot_product_attention.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "generation",
+    "title": "Transformers: estratégias de geração",
+    "url": "https://huggingface.co/docs/transformers/generation_strategies",
+    "status": 200,
+    "final_url": "https://huggingface.co/docs/transformers/generation_strategies",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "cache",
+    "title": "Transformers: KV cache",
+    "url": "https://huggingface.co/docs/transformers/kv_cache",
+    "status": 200,
+    "final_url": "https://huggingface.co/docs/transformers/kv_cache",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "pgvector",
+    "title": "pgvector: README oficial",
+    "url": "https://github.com/pgvector/pgvector",
+    "status": 200,
+    "final_url": "https://github.com/pgvector/pgvector",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "qdrant",
+    "title": "Qdrant: pesquisa",
+    "url": "https://qdrant.tech/documentation/concepts/search/",
+    "status": 200,
+    "final_url": "https://qdrant.tech/documentation/concepts/search/",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "opensearch",
+    "title": "OpenSearch: busca vetorial",
+    "url": "https://docs.opensearch.org/latest/vector-search/",
+    "status": 200,
+    "final_url": "https://docs.opensearch.org/latest/vector-search/",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "milvus",
+    "title": "Milvus: índices",
+    "url": "https://github.com/milvus-io/web-content/blob/master/v3.0.x/site/en/userGuide/indexes/index-explained.md",
+    "status": 200,
+    "final_url": "https://github.com/milvus-io/web-content/blob/master/v3.0.x/site/en/userGuide/indexes/index-explained.md",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "rag",
+    "title": "Lewis et al.: Retrieval-Augmented Generation",
+    "url": "https://arxiv.org/abs/2005.11401",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2005.11401",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "cag",
+    "title": "Don’t Do RAG: When Cache-Augmented Generation is All You Need",
+    "url": "https://arxiv.org/abs/2412.15605",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2412.15605",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "reactagent",
+    "title": "Yao et al.: ReAct",
+    "url": "https://arxiv.org/abs/2210.03629",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2210.03629",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "langchain",
+    "title": "LangChain: overview",
+    "url": "https://docs.langchain.com/oss/python/langchain/overview",
+    "status": 200,
+    "final_url": "https://docs.langchain.com/oss/python/langchain/overview",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "langgraph",
+    "title": "LangGraph: overview",
+    "url": "https://docs.langchain.com/oss/python/langgraph/overview",
+    "status": 200,
+    "final_url": "https://docs.langchain.com/oss/python/langgraph/overview",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "durable",
+    "title": "LangGraph: durable execution",
+    "url": "https://docs.langchain.com/oss/python/langgraph/durable-execution",
+    "status": 200,
+    "final_url": "https://docs.langchain.com/oss/python/langgraph/persistence",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "postgres",
+    "title": "PostgreSQL: transaction isolation",
+    "url": "https://www.postgresql.org/docs/current/transaction-iso.html",
+    "status": 200,
+    "final_url": "https://www.postgresql.org/docs/current/transaction-iso.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "redis",
+    "title": "Redis: XREADGROUP",
+    "url": "https://redis.io/docs/latest/commands/xreadgroup/",
+    "status": 200,
+    "final_url": "https://redis.io/docs/latest/commands/xreadgroup/",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "mcp",
+    "title": "MCP specification 2025-11-25",
+    "url": "https://modelcontextprotocol.io/specification/2025-11-25",
+    "status": 200,
+    "final_url": "https://modelcontextprotocol.io/specification/2025-11-25",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "mcptrans",
+    "title": "MCP: transports",
+    "url": "https://modelcontextprotocol.io/specification/2025-11-25/basic/transports",
+    "status": 200,
+    "final_url": "https://modelcontextprotocol.io/specification/2025-11-25/basic/transports",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "lora",
+    "title": "PEFT: LoRA",
+    "url": "https://huggingface.co/docs/peft/main/en/conceptual_guides/lora",
+    "status": 200,
+    "final_url": "https://huggingface.co/docs/peft/main/en/conceptual_guides/lora",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "qlora",
+    "title": "Dettmers et al.: QLoRA",
+    "url": "https://arxiv.org/abs/2305.14314",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2305.14314",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "owasp",
+    "title": "OWASP: LLM Prompt Injection Prevention",
+    "url": "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
+    "status": 200,
+    "final_url": "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "opa",
+    "title": "Open Policy Agent: introdução",
+    "url": "https://www.openpolicyagent.org/docs/latest/",
+    "status": 200,
+    "final_url": "https://www.openpolicyagent.org/docs",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "litellm",
+    "title": "LiteLLM: budgets e rate limits",
+    "url": "https://docs.litellm.ai/docs/proxy/users",
+    "status": 200,
+    "final_url": "https://docs.litellm.ai/docs/proxy/users",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "bedrock",
+    "title": "AWS Bedrock: Converse",
+    "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html",
+    "status": 200,
+    "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/conversation-inference.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "awsmodels",
+    "title": "AWS Bedrock: modelos suportados",
+    "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html",
+    "status": 200,
+    "final_url": "https://docs.aws.amazon.com/bedrock/latest/userguide/models-supported.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "iam",
+    "title": "AWS IAM: boas práticas",
+    "url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+    "status": 200,
+    "final_url": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "react",
+    "title": "React: gerenciando estado",
+    "url": "https://react.dev/learn/managing-state",
+    "status": 200,
+    "final_url": "https://react.dev/learn/managing-state",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "angular",
+    "title": "Angular: signals",
+    "url": "https://angular.dev/guide/signals",
+    "status": 200,
+    "final_url": "https://angular.dev/guide/signals",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "otel",
+    "title": "OpenTelemetry: traces",
+    "url": "https://opentelemetry.io/docs/concepts/signals/traces/",
+    "status": 200,
+    "final_url": "https://opentelemetry.io/docs/concepts/signals/traces/",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "langfuse",
+    "title": "Langfuse: observabilidade",
+    "url": "https://langfuse.com/docs/observability/overview",
+    "status": 200,
+    "final_url": "https://langfuse.com/docs/observability/overview",
+    "checked": "2026-10-20"
+  },
+  {
+    "key": "sre",
+    "title": "Google SRE: monitoring distributed systems",
+    "url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+    "status": 200,
+    "final_url": "https://sre.google/sre-book/monitoring-distributed-systems/",
+    "checked": "2026-10-20"
+  }
+]

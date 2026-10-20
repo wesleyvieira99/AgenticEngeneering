@@ -1,0 +1,1040 @@
+{
+  "mode": "deterministic",
+  "embedding": "hash-384-v1",
+  "dataset": "datasets/eval.jsonl",
+  "dataset_size": 4,
+  "limitations": [
+    "Small synthetic regression set used during development; independent holdout still required",
+    "Substring checks are not groundedness scores",
+    "Deterministic latency does not estimate LLM latency",
+    "Direct baseline has no retrieval by design",
+    "No LLM-as-judge used"
+  ],
+  "summaries": [
+    {
+      "strategy": "baseline",
+      "completed": 4,
+      "total": 4,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "abstention_accuracy": 1,
+      "mean_latency_ms": 27.8425
+    },
+    {
+      "strategy": "direct",
+      "completed": 4,
+      "total": 4,
+      "recall_at_5": 0.0,
+      "mrr": 0.0,
+      "abstention_accuracy": 1,
+      "mean_latency_ms": 18.8825
+    },
+    {
+      "strategy": "rag",
+      "completed": 4,
+      "total": 4,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "abstention_accuracy": 1,
+      "mean_latency_ms": 24.0625
+    },
+    {
+      "strategy": "cag",
+      "completed": 4,
+      "total": 4,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "abstention_accuracy": 1,
+      "mean_latency_ms": 29.465
+    },
+    {
+      "strategy": "agent",
+      "completed": 4,
+      "total": 4,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "abstention_accuracy": 1,
+      "mean_latency_ms": 34.205
+    },
+    {
+      "strategy": "langgraph",
+      "completed": 4,
+      "total": 4,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "abstention_accuracy": 1,
+      "mean_latency_ms": 29.69
+    },
+    {
+      "strategy": "multiagent",
+      "completed": 4,
+      "total": 4,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "abstention_accuracy": 1,
+      "mean_latency_ms": 17.3375
+    },
+    {
+      "strategy": "async",
+      "completed": 4,
+      "total": 4,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "abstention_accuracy": 1,
+      "mean_latency_ms": 15.557500000000001
+    }
+  ],
+  "rows": [
+    {
+      "strategy": "baseline",
+      "task": "eval-01",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 44.09,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cost_usd": 0.0,
+        "model": "none"
+      },
+      "error": null
+    },
+    {
+      "strategy": "baseline",
+      "task": "eval-02",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 23.9,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cost_usd": 0.0,
+        "model": "none"
+      },
+      "error": null
+    },
+    {
+      "strategy": "baseline",
+      "task": "eval-03",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 21.93,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cost_usd": 0.0,
+        "model": "none"
+      },
+      "error": null
+    },
+    {
+      "strategy": "baseline",
+      "task": "eval-04",
+      "status": "completed",
+      "retrieval_hit_at_5": null,
+      "reciprocal_rank": null,
+      "answer_substring_check": null,
+      "abstention_expected": true,
+      "abstained": true,
+      "duration_ms": 21.45,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cost_usd": 0.0,
+        "model": "none"
+      },
+      "error": null
+    },
+    {
+      "strategy": "direct",
+      "task": "eval-01",
+      "status": "completed",
+      "retrieval_hit_at_5": false,
+      "reciprocal_rank": 0,
+      "answer_substring_check": false,
+      "abstention_expected": false,
+      "abstained": true,
+      "duration_ms": 22.98,
+      "usage": {
+        "input_tokens": 569,
+        "output_tokens": 53,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 569,
+            "output_tokens": 53,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "direct",
+      "task": "eval-02",
+      "status": "completed",
+      "retrieval_hit_at_5": false,
+      "reciprocal_rank": 0,
+      "answer_substring_check": false,
+      "abstention_expected": false,
+      "abstained": true,
+      "duration_ms": 15.55,
+      "usage": {
+        "input_tokens": 559,
+        "output_tokens": 53,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 559,
+            "output_tokens": 53,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "direct",
+      "task": "eval-03",
+      "status": "completed",
+      "retrieval_hit_at_5": false,
+      "reciprocal_rank": 0,
+      "answer_substring_check": false,
+      "abstention_expected": false,
+      "abstained": true,
+      "duration_ms": 16.73,
+      "usage": {
+        "input_tokens": 571,
+        "output_tokens": 53,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 571,
+            "output_tokens": 53,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "direct",
+      "task": "eval-04",
+      "status": "completed",
+      "retrieval_hit_at_5": null,
+      "reciprocal_rank": null,
+      "answer_substring_check": null,
+      "abstention_expected": true,
+      "abstained": true,
+      "duration_ms": 20.27,
+      "usage": {
+        "input_tokens": 549,
+        "output_tokens": 53,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 549,
+            "output_tokens": 53,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "rag",
+      "task": "eval-01",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 23.08,
+      "usage": {
+        "input_tokens": 1116,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1116,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "rag",
+      "task": "eval-02",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 24.76,
+      "usage": {
+        "input_tokens": 1016,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1016,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "rag",
+      "task": "eval-03",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 24.63,
+      "usage": {
+        "input_tokens": 1020,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1020,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "rag",
+      "task": "eval-04",
+      "status": "completed",
+      "retrieval_hit_at_5": null,
+      "reciprocal_rank": null,
+      "answer_substring_check": null,
+      "abstention_expected": true,
+      "abstained": true,
+      "duration_ms": 23.78,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cost_usd": 0,
+        "model": "none",
+        "calls": 0,
+        "by_agent": {}
+      },
+      "error": null
+    },
+    {
+      "strategy": "cag",
+      "task": "eval-01",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 30.17,
+      "usage": {
+        "input_tokens": 1111,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1111,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "cag",
+      "task": "eval-02",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 32.19,
+      "usage": {
+        "input_tokens": 1011,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1011,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "cag",
+      "task": "eval-03",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 27.38,
+      "usage": {
+        "input_tokens": 1015,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1015,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "cag",
+      "task": "eval-04",
+      "status": "completed",
+      "retrieval_hit_at_5": null,
+      "reciprocal_rank": null,
+      "answer_substring_check": null,
+      "abstention_expected": true,
+      "abstained": true,
+      "duration_ms": 28.12,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cost_usd": 0,
+        "model": "none",
+        "calls": 0,
+        "by_agent": {}
+      },
+      "error": null
+    },
+    {
+      "strategy": "agent",
+      "task": "eval-01",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 43.72,
+      "usage": {
+        "input_tokens": 1371,
+        "output_tokens": 144,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 2,
+        "by_agent": {
+          "planner": {
+            "input_tokens": 255,
+            "output_tokens": 11,
+            "cost_usd": 0.0
+          },
+          "synthesizer": {
+            "input_tokens": 1116,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "agent",
+      "task": "eval-02",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 43.15,
+      "usage": {
+        "input_tokens": 1261,
+        "output_tokens": 144,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 2,
+        "by_agent": {
+          "planner": {
+            "input_tokens": 245,
+            "output_tokens": 11,
+            "cost_usd": 0.0
+          },
+          "synthesizer": {
+            "input_tokens": 1016,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "agent",
+      "task": "eval-03",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 28.68,
+      "usage": {
+        "input_tokens": 1277,
+        "output_tokens": 144,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 2,
+        "by_agent": {
+          "planner": {
+            "input_tokens": 257,
+            "output_tokens": 11,
+            "cost_usd": 0.0
+          },
+          "synthesizer": {
+            "input_tokens": 1020,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "agent",
+      "task": "eval-04",
+      "status": "completed",
+      "retrieval_hit_at_5": null,
+      "reciprocal_rank": null,
+      "answer_substring_check": null,
+      "abstention_expected": true,
+      "abstained": true,
+      "duration_ms": 21.27,
+      "usage": {
+        "input_tokens": 235,
+        "output_tokens": 11,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "planner",
+        "calls": 1,
+        "by_agent": {
+          "planner": {
+            "input_tokens": 235,
+            "output_tokens": 11,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "langgraph",
+      "task": "eval-01",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 40.02,
+      "usage": {
+        "input_tokens": 1116,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1116,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "langgraph",
+      "task": "eval-02",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 27.66,
+      "usage": {
+        "input_tokens": 1016,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1016,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "langgraph",
+      "task": "eval-03",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 25.39,
+      "usage": {
+        "input_tokens": 1020,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1020,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "langgraph",
+      "task": "eval-04",
+      "status": "completed",
+      "retrieval_hit_at_5": null,
+      "reciprocal_rank": null,
+      "answer_substring_check": null,
+      "abstention_expected": true,
+      "abstained": true,
+      "duration_ms": 25.69,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cost_usd": 0,
+        "model": "none",
+        "calls": 0,
+        "by_agent": {}
+      },
+      "error": null
+    },
+    {
+      "strategy": "multiagent",
+      "task": "eval-01",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 18.06,
+      "usage": {
+        "input_tokens": 2141,
+        "output_tokens": 314,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 3,
+        "by_agent": {
+          "researcher": {
+            "input_tokens": 584,
+            "output_tokens": 128,
+            "cost_usd": 0.0
+          },
+          "analyst": {
+            "input_tokens": 336,
+            "output_tokens": 53,
+            "cost_usd": 0.0
+          },
+          "synthesizer": {
+            "input_tokens": 1221,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "multiagent",
+      "task": "eval-02",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 18.13,
+      "usage": {
+        "input_tokens": 2099,
+        "output_tokens": 314,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 3,
+        "by_agent": {
+          "researcher": {
+            "input_tokens": 568,
+            "output_tokens": 128,
+            "cost_usd": 0.0
+          },
+          "analyst": {
+            "input_tokens": 326,
+            "output_tokens": 53,
+            "cost_usd": 0.0
+          },
+          "synthesizer": {
+            "input_tokens": 1205,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "multiagent",
+      "task": "eval-03",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 16.81,
+      "usage": {
+        "input_tokens": 2139,
+        "output_tokens": 314,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 3,
+        "by_agent": {
+          "researcher": {
+            "input_tokens": 582,
+            "output_tokens": 128,
+            "cost_usd": 0.0
+          },
+          "analyst": {
+            "input_tokens": 338,
+            "output_tokens": 53,
+            "cost_usd": 0.0
+          },
+          "synthesizer": {
+            "input_tokens": 1219,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "multiagent",
+      "task": "eval-04",
+      "status": "completed",
+      "retrieval_hit_at_5": null,
+      "reciprocal_rank": null,
+      "answer_substring_check": null,
+      "abstention_expected": true,
+      "abstained": true,
+      "duration_ms": 16.35,
+      "usage": {
+        "input_tokens": 1455,
+        "output_tokens": 159,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 3,
+        "by_agent": {
+          "researcher": {
+            "input_tokens": 285,
+            "output_tokens": 53,
+            "cost_usd": 0.0
+          },
+          "analyst": {
+            "input_tokens": 316,
+            "output_tokens": 53,
+            "cost_usd": 0.0
+          },
+          "synthesizer": {
+            "input_tokens": 854,
+            "output_tokens": 53,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "async",
+      "task": "eval-01",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 17.01,
+      "usage": {
+        "input_tokens": 1116,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1116,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "async",
+      "task": "eval-02",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 15.2,
+      "usage": {
+        "input_tokens": 1016,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1016,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "async",
+      "task": "eval-03",
+      "status": "completed",
+      "retrieval_hit_at_5": true,
+      "reciprocal_rank": 1.0,
+      "answer_substring_check": true,
+      "abstention_expected": false,
+      "abstained": false,
+      "duration_ms": 15.73,
+      "usage": {
+        "input_tokens": 1020,
+        "output_tokens": 133,
+        "cost_usd": 0.0,
+        "model": "deterministic-extractive-v1",
+        "provider": "deterministic",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": true,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 1020,
+            "output_tokens": 133,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null
+    },
+    {
+      "strategy": "async",
+      "task": "eval-04",
+      "status": "completed",
+      "retrieval_hit_at_5": null,
+      "reciprocal_rank": null,
+      "answer_substring_check": null,
+      "abstention_expected": true,
+      "abstained": true,
+      "duration_ms": 14.29,
+      "usage": {
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "cost_usd": 0,
+        "model": "none",
+        "calls": 0,
+        "by_agent": {}
+      },
+      "error": null
+    }
+  ]
+}

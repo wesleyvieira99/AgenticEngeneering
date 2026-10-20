@@ -1,0 +1,23 @@
+.venv/bin/python scripts/e2e.py
+
+> atlas-e2e@0.1.0 test
+> playwright test
+
+
+Running 9 tests using 1 worker
+
+(node:19419) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:19419) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 clients.spec.js:4:3 › React: authenticated document → answer → approved ticket (4.0s)
+  ✓  2 clients.spec.js:4:3 › Angular: authenticated document → answer → approved ticket (3.3s)
+  ✓  3 clients.spec.js:41:3 › React: authentication error, queued cancellation and safe resume (1.2s)
+  ✓  4 clients.spec.js:41:3 › Angular: authentication error, queued cancellation and safe resume (1.0s)
+  ✓  5 manual.spec.js:3:1 › Manual: content, progress, notes, vector experiment and mobile layout (972ms)
+  ✓  6 manual.spec.js:43:1 › Manual: export/import preserves study and every chapter deep-link resolves (1.2s)
+  ✓  7 manual.spec.js:67:1 › Manual: all nine laboratories update from user input without errors (592ms)
+  ✓  8 tenant-state.spec.js:50:3 › React: private drafts are cleared after logout and expired-session login (1.1s)
+  ✓  9 tenant-state.spec.js:50:3 › Angular: private drafts are cleared after logout and expired-session login (1.4s)
+
+  9 passed (16.2s)

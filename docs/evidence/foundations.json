@@ -1,0 +1,56 @@
+{
+  "text": "IA é útil",
+  "utf8_bytes": [
+    73,
+    65,
+    32,
+    195,
+    169,
+    32,
+    195,
+    186,
+    116,
+    105,
+    108
+  ],
+  "binary_I": "01001001",
+  "float32_0.1_hex": "3dcccccd",
+  "didactic_tokenizer": [
+    "I",
+    "A",
+    " ",
+    "é",
+    " ",
+    "ú",
+    "t",
+    "i",
+    "l"
+  ],
+  "tokenizer_warning": "Caracteres, não tokenizer de produção",
+  "cosine": 0.7071067811865475,
+  "softmax": [
+    0.6652409557748218,
+    0.24472847105479764,
+    0.09003057317038046
+  ],
+  "entropy_bits": 1.2008929779783633,
+  "int4": {
+    "ids": [
+      -5,
+      1,
+      7
+    ],
+    "scale": 0.1357142857142857,
+    "reconstructed": [
+      -0.6785714285714285,
+      0.1357142857142857,
+      0.95
+    ]
+  },
+  "gradient_descent": {
+    "weight": 2.0,
+    "initial_mse": 18.666666666666668,
+    "final_mse": 0.0,
+    "validation_prediction": 8.0
+  }
+}

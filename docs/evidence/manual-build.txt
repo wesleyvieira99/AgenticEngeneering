@@ -1,0 +1,29 @@
+.venv/bin/python apps/manual/build.py
+Built 28 chapters, 35 glossary terms, 12 verified snippets to /Users/wesleyvieira/Documents/Codex/2026-10-20/files-pasted-by-the-user-voc/work/AgenticEngeneering/apps/manual/dist
+.venv/bin/python apps/manual/validate.py
+20+ numerical/edge checks passed; educational formulas only, no provider validation.
+{
+  "result": "pass",
+  "chapters": 28,
+  "pedagogical_points_per_chapter": 19,
+  "authored_words_approx": 14377,
+  "glossary_terms": 35,
+  "source_snippets": 12,
+  "annotated_source_lines": 108,
+  "checks": [
+    "content",
+    "prerequisite_dag",
+    "code_paths",
+    "snippet_hashes",
+    "line_annotations",
+    "assets",
+    "manifest",
+    "js_syntax",
+    "numerical_properties"
+  ],
+  "not_checked": [
+    "external URL reachability",
+    "browser interactions",
+    "production services"
+  ]
+}

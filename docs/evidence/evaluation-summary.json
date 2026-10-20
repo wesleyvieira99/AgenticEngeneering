@@ -1,0 +1,74 @@
+[
+  {
+    "strategy": "baseline",
+    "completed": 4,
+    "total": 4,
+    "recall_at_5": 1.0,
+    "mrr": 1.0,
+    "abstention_accuracy": 1,
+    "mean_latency_ms": 27.8425
+  },
+  {
+    "strategy": "direct",
+    "completed": 4,
+    "total": 4,
+    "recall_at_5": 0.0,
+    "mrr": 0.0,
+    "abstention_accuracy": 1,
+    "mean_latency_ms": 18.8825
+  },
+  {
+    "strategy": "rag",
+    "completed": 4,
+    "total": 4,
+    "recall_at_5": 1.0,
+    "mrr": 1.0,
+    "abstention_accuracy": 1,
+    "mean_latency_ms": 24.0625
+  },
+  {
+    "strategy": "cag",
+    "completed": 4,
+    "total": 4,
+    "recall_at_5": 1.0,
+    "mrr": 1.0,
+    "abstention_accuracy": 1,
+    "mean_latency_ms": 29.465
+  },
+  {
+    "strategy": "agent",
+    "completed": 4,
+    "total": 4,
+    "recall_at_5": 1.0,
+    "mrr": 1.0,
+    "abstention_accuracy": 1,
+    "mean_latency_ms": 34.205
+  },
+  {
+    "strategy": "langgraph",
+    "completed": 4,
+    "total": 4,
+    "recall_at_5": 1.0,
+    "mrr": 1.0,
+    "abstention_accuracy": 1,
+    "mean_latency_ms": 29.69
+  },
+  {
+    "strategy": "multiagent",
+    "completed": 4,
+    "total": 4,
+    "recall_at_5": 1.0,
+    "mrr": 1.0,
+    "abstention_accuracy": 1,
+    "mean_latency_ms": 17.3375
+  },
+  {
+    "strategy": "async",
+    "completed": 4,
+    "total": 4,
+    "recall_at_5": 1.0,
+    "mrr": 1.0,
+    "abstention_accuracy": 1,
+    "mean_latency_ms": 15.557500000000001
+  }
+]

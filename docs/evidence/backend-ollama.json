@@ -1,0 +1,219 @@
+{
+  "date": "2026-10-20",
+  "database": "PostgreSQL 16 + pgvector 384, isolated schema",
+  "embedding": "ollama:all-minilm:384",
+  "provider": "ollama",
+  "model": "qwen2.5:0.5b",
+  "transport": "actual HTTP + native Ollama NDJSON + SSE",
+  "results": [
+    {
+      "strategy": "rag",
+      "status": "completed",
+      "answer": "O prazo do reembolso Atlas é 7 dias úteis após aprovação. Solicitações precisam do número do pedido. [22b8aeea45924cde939126e9aa4ae79c]",
+      "usage": {
+        "input_tokens": 254,
+        "output_tokens": 82,
+        "cost_usd": 0.0,
+        "model": "qwen2.5:0.5b",
+        "provider": "ollama",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": false,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 254,
+            "output_tokens": 82,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null,
+      "source_count": 1,
+      "provider_stream_chunks": 31,
+      "first_token_ms": 356.59,
+      "done_ms": 2129.99,
+      "status_on_first_token": "running",
+      "stream_received_before_done": true,
+      "snapshot": {
+        "configuration": {
+          "mode": "ollama",
+          "model": "qwen2.5:0.5b",
+          "price_version": "local-zero-inference-v1",
+          "input_usd_per_million": 0.0,
+          "output_usd_per_million": 0.0,
+          "embedding_version": "ollama:all-minilm:384",
+          "region": null
+        },
+        "sha256": "bb839c3587bb0d1b61c80ac2c593afc6c9ff08a58fa4948f1935322640f236c5"
+      }
+    },
+    {
+      "strategy": "agent",
+      "status": "completed",
+      "answer": "O prazo do reembolso Atlas é 7 dias úteis após aprovação. Solicitações precisam do número do pedido. [22b8aeea45924cde939126e9aa4ae79c]",
+      "usage": {
+        "input_tokens": 317,
+        "output_tokens": 90,
+        "cost_usd": 0.0,
+        "model": "qwen2.5:0.5b",
+        "provider": "ollama",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": false,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 2,
+        "by_agent": {
+          "planner": {
+            "input_tokens": 63,
+            "output_tokens": 8,
+            "cost_usd": 0.0
+          },
+          "synthesizer": {
+            "input_tokens": 254,
+            "output_tokens": 82,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null,
+      "source_count": 1,
+      "provider_stream_chunks": 31,
+      "first_token_ms": 493.57,
+      "done_ms": 2831.34,
+      "status_on_first_token": "running",
+      "stream_received_before_done": true,
+      "snapshot": {
+        "configuration": {
+          "mode": "ollama",
+          "model": "qwen2.5:0.5b",
+          "price_version": "local-zero-inference-v1",
+          "input_usd_per_million": 0.0,
+          "output_usd_per_million": 0.0,
+          "embedding_version": "ollama:all-minilm:384",
+          "region": null
+        },
+        "sha256": "bb839c3587bb0d1b61c80ac2c593afc6c9ff08a58fa4948f1935322640f236c5"
+      }
+    },
+    {
+      "strategy": "multiagent",
+      "status": "completed",
+      "answer": "O prazo do reembolso Atlas é 7 dias úteis após aprovação. Solicitações precisam do número do pedido. [22b8aeea45924cde939126e9aa4ae79c]",
+      "usage": {
+        "input_tokens": 666,
+        "output_tokens": 130,
+        "cost_usd": 0.0,
+        "model": "qwen2.5:0.5b",
+        "provider": "ollama",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": false,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 3,
+        "by_agent": {
+          "researcher": {
+            "input_tokens": 170,
+            "output_tokens": 37,
+            "cost_usd": 0.0
+          },
+          "analyst": {
+            "input_tokens": 93,
+            "output_tokens": 20,
+            "cost_usd": 0.0
+          },
+          "synthesizer": {
+            "input_tokens": 403,
+            "output_tokens": 73,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null,
+      "source_count": 1,
+      "provider_stream_chunks": 31,
+      "first_token_ms": 2389.72,
+      "done_ms": 4499.34,
+      "status_on_first_token": "running",
+      "stream_received_before_done": true,
+      "snapshot": {
+        "configuration": {
+          "mode": "ollama",
+          "model": "qwen2.5:0.5b",
+          "price_version": "local-zero-inference-v1",
+          "input_usd_per_million": 0.0,
+          "output_usd_per_million": 0.0,
+          "embedding_version": "ollama:all-minilm:384",
+          "region": null
+        },
+        "sha256": "bb839c3587bb0d1b61c80ac2c593afc6c9ff08a58fa4948f1935322640f236c5"
+      }
+    },
+    {
+      "strategy": "langgraph",
+      "status": "completed",
+      "answer": "O prazo do reembolso Atlas é 7 dias úteis após aprovação. Solicitações precisam do número do pedido. [22b8aeea45924cde939126e9aa4ae79c]",
+      "usage": {
+        "input_tokens": 254,
+        "output_tokens": 82,
+        "cost_usd": 0.0,
+        "model": "qwen2.5:0.5b",
+        "provider": "ollama",
+        "price_version": "local-zero-inference-v1",
+        "estimated_tokens": false,
+        "validation_fallback": null,
+        "agent": "synthesizer",
+        "calls": 1,
+        "by_agent": {
+          "synthesizer": {
+            "input_tokens": 254,
+            "output_tokens": 82,
+            "cost_usd": 0.0
+          }
+        }
+      },
+      "error": null,
+      "source_count": 1,
+      "provider_stream_chunks": 31,
+      "first_token_ms": 338.06,
+      "done_ms": 2502.7,
+      "status_on_first_token": "running",
+      "stream_received_before_done": true,
+      "snapshot": {
+        "configuration": {
+          "mode": "ollama",
+          "model": "qwen2.5:0.5b",
+          "price_version": "local-zero-inference-v1",
+          "input_usd_per_million": 0.0,
+          "output_usd_per_million": 0.0,
+          "embedding_version": "ollama:all-minilm:384",
+          "region": null
+        },
+        "sha256": "bb839c3587bb0d1b61c80ac2c593afc6c9ff08a58fa4948f1935322640f236c5"
+      }
+    }
+  ],
+  "usage_after_runs": {
+    "input_tokens": 1491,
+    "output_tokens": 384,
+    "cost_usd": 0.0,
+    "runs": 4,
+    "successful_runs": 4,
+    "cost_per_success_usd": 0.0,
+    "limits": {
+      "tenant_tokens": 100000,
+      "tenant_cost_usd": 10.0,
+      "max_tokens": 4096,
+      "max_output_tokens": 512,
+      "max_calls": 3,
+      "max_tools": 3,
+      "max_steps": 12,
+      "timeout_seconds": 60,
+      "concurrency": 4
+    },
+    "reserved_tokens": 0,
+    "reserved_cost_usd": 0.0,
+    "active_runs": 0
+  }
+}

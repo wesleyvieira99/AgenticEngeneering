@@ -1,0 +1,33 @@
+{
+  "mode": "random_tiny_smoke",
+  "model": "random-gpt2-32d-1layer",
+  "revision": null,
+  "model_license": "MIT project code",
+  "dataset_license": "CC0-1.0",
+  "seed": 19,
+  "steps": 8,
+  "device": "cpu",
+  "trainable_parameters": 512,
+  "parameters": 29664,
+  "train_loss": [
+    5.506877899169922,
+    5.575088977813721,
+    5.5410284996032715,
+    5.554687023162842,
+    5.528229713439941,
+    5.51363468170166,
+    5.556951999664307,
+    5.54610013961792
+  ],
+  "validation_loss_before": 5.545535405476888,
+  "validation_loss_after": 5.544417540232341,
+  "test_loss": 5.548305829366048,
+  "weights_changed": true,
+  "elapsed_seconds": 0.12522004172205925,
+  "dataset_sha256": {
+    "train": "c1b1b068eeb6c7976c50a7abe6a303dccc7c50f2971b63701a591bcec94de96d",
+    "validation": "2d821a228c8de834b204dc1fa9714e682c6362e49353057f3431aa9d4d048389",
+    "test": "3b172ec4eb574b6d9ced13953b5a295268b7df84d4047a6c1b4e652daee57548"
+  },
+  "limitation": "Tiny synthetic dataset; no claim of useful task improvement. Smoke starts random; full starts pretrained."
+}

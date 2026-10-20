@@ -1,0 +1,33 @@
+{
+  "mode": "pretrained_lora",
+  "model": "HuggingFaceTB/SmolLM2-135M-Instruct",
+  "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+  "model_license": "Apache-2.0",
+  "dataset_license": "CC0-1.0",
+  "seed": 19,
+  "steps": 8,
+  "device": "cpu",
+  "trainable_parameters": 230400,
+  "parameters": 134745408,
+  "train_loss": [
+    5.828499794006348,
+    6.061572551727295,
+    4.234182834625244,
+    3.540666103363037,
+    3.535257339477539,
+    3.846170425415039,
+    3.9659852981567383,
+    4.620911121368408
+  ],
+  "validation_loss_before": 4.340474287668864,
+  "validation_loss_after": 4.057348648707072,
+  "test_loss": 3.740782101949056,
+  "weights_changed": true,
+  "elapsed_seconds": 15.918016749899834,
+  "dataset_sha256": {
+    "train": "c1b1b068eeb6c7976c50a7abe6a303dccc7c50f2971b63701a591bcec94de96d",
+    "validation": "2d821a228c8de834b204dc1fa9714e682c6362e49353057f3431aa9d4d048389",
+    "test": "3b172ec4eb574b6d9ced13953b5a295268b7df84d4047a6c1b4e652daee57548"
+  },
+  "limitation": "Tiny synthetic dataset; no claim of useful task improvement. Smoke starts random; full starts pretrained."
+}

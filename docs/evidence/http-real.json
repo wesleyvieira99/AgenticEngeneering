@@ -1,0 +1,386 @@
+{
+  "health": {
+    "status": "ok",
+    "mode": "ollama"
+  },
+  "mode_validation": "real",
+  "rag": {
+    "id": "adad2cb2eccb4013805e6dd1fb3a1a4f",
+    "status": "completed",
+    "question": "Qual o prazo de primeira resposta para um incidente P1?",
+    "strategy": "rag",
+    "answer": "O prazo de primeira resposta para um incidente P1 é de 15 minutos.",
+    "sources": [
+      {
+        "id": "578cb20f73d24959b9420f1551364298",
+        "title": "Política de incidentes Atlas — v1",
+        "text": "A organização Acme classifica incidentes como P1, P2 e P3. Incidentes P1 interrompem o serviço e devem receber primeira resposta em 15 minutos. Incidentes P2 degradam uma função e recebem primeira resposta em 4 horas. Incidentes P3 são dúvidas e recebem resposta em 2 dias úteis. Um ticket deve conter título, impacto e evidências. A criação de ticket por IA exige aprovação humana. Estes prazos são sintéticos para treinamento.",
+        "score": 0.032787
+      },
+      {
+        "id": "26553fdde22046ffb8da6f2ac9ff9501",
+        "title": "Runbook de recuperação — v1",
+        "text": "Antes de reiniciar um serviço, consulte os logs e a saúde do banco. Uma fila crescente pode indicar backpressure: reduza admissão, preserve tarefas já aceitas e investigue latência dos workers. Reentregas usam a mesma chave de idempotência. Se a resposta do provedor expirar, marque consumo como incerto; timeout não prova ausência de cobrança.",
+        "score": 0.032258
+      },
+      {
+        "id": "37fddaa046564095a2d178d257f376e6",
+        "title": "Governança de documentos — v1",
+        "text": "Documentos pertencem à organização que os enviou. A busca deve aplicar o filtro de tenant antes de retornar trechos. Conteúdo de documentos não pode conceder permissões, alterar ferramentas autorizadas nem aprovar operações. A exclusão de documento invalida o contexto em cache. Memória de conversa depende de consentimento explícito.",
+        "score": 0.031746
+      }
+    ],
+    "events": [
+      {
+        "type": "status",
+        "data": {
+          "status": "queued"
+        }
+      },
+      {
+        "type": "status",
+        "data": {
+          "status": "running"
+        }
+      },
+      {
+        "type": "plan",
+        "data": {
+          "strategy": "rag",
+          "max_steps": 12,
+          "public_plan": [
+            "authorize",
+            "retrieve",
+            "compose",
+            "verify"
+          ]
+        }
+      },
+      {
+        "type": "tool",
+        "data": {
+          "name": "documents.search",
+          "authorized": true
+        }
+      },
+      {
+        "type": "retrieval",
+        "data": {
+          "count": 3,
+          "algorithm": "bm25+cosine+rrf",
+          "embedding": "ollama:all-minilm:384"
+        }
+      },
+      {
+        "type": "context",
+        "data": {
+          "sources": 3,
+          "memory_enabled": false,
+          "trust_boundary": "documents-as-data"
+        }
+      },
+      {
+        "type": "model",
+        "data": {
+          "model": "qwen2.5:0.5b",
+          "provider": "ollama",
+          "calls": 1
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": "O",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " pr",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": "azo",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " de",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " primeira",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " resposta",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " para",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " um",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " incident",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": "e",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " P",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": "1",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " é",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " de",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " ",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": "1",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": "5",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": " minutos",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "token",
+        "data": {
+          "text": ".",
+          "provisional": true,
+          "provider_stream": true
+        }
+      },
+      {
+        "type": "review",
+        "data": {
+          "agent": "reviewer",
+          "schema_valid": true,
+          "citations_valid": true,
+          "groundedness": "not_automatically_proven"
+        }
+      },
+      {
+        "type": "sources",
+        "data": [
+          {
+            "id": "578cb20f73d24959b9420f1551364298",
+            "title": "Política de incidentes Atlas — v1",
+            "text": "A organização Acme classifica incidentes como P1, P2 e P3. Incidentes P1 interrompem o serviço e devem receber primeira resposta em 15 minutos. Incidentes P2 degradam uma função e recebem primeira resposta em 4 horas. Incidentes P3 são dúvidas e recebem resposta em 2 dias úteis. Um ticket deve conter título, impacto e evidências. A criação de ticket por IA exige aprovação humana. Estes prazos são sintéticos para treinamento.",
+            "score": 0.032787
+          },
+          {
+            "id": "26553fdde22046ffb8da6f2ac9ff9501",
+            "title": "Runbook de recuperação — v1",
+            "text": "Antes de reiniciar um serviço, consulte os logs e a saúde do banco. Uma fila crescente pode indicar backpressure: reduza admissão, preserve tarefas já aceitas e investigue latência dos workers. Reentregas usam a mesma chave de idempotência. Se a resposta do provedor expirar, marque consumo como incerto; timeout não prova ausência de cobrança.",
+            "score": 0.032258
+          },
+          {
+            "id": "37fddaa046564095a2d178d257f376e6",
+            "title": "Governança de documentos — v1",
+            "text": "Documentos pertencem à organização que os enviou. A busca deve aplicar o filtro de tenant antes de retornar trechos. Conteúdo de documentos não pode conceder permissões, alterar ferramentas autorizadas nem aprovar operações. A exclusão de documento invalida o contexto em cache. Memória de conversa depende de consentimento explícito.",
+            "score": 0.031746
+          }
+        ]
+      },
+      {
+        "type": "usage",
+        "data": {
+          "input_tokens": 652,
+          "output_tokens": 78,
+          "cost_usd": 0.0,
+          "model": "qwen2.5:0.5b",
+          "provider": "ollama",
+          "price_version": "local-zero-inference-v1",
+          "estimated_tokens": false,
+          "calls": 1
+        }
+      },
+      {
+        "type": "status",
+        "data": {
+          "status": "completed"
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 652,
+      "output_tokens": 78,
+      "cost_usd": 0.0,
+      "model": "qwen2.5:0.5b",
+      "provider": "ollama",
+      "price_version": "local-zero-inference-v1",
+      "estimated_tokens": false,
+      "calls": 1
+    },
+    "latency_ms": 32187.3,
+    "approval_id": null,
+    "conversation_id": null,
+    "error": null
+  },
+  "action": {
+    "id": "da4aee3726b74454897caa7e1b39fd75",
+    "status": "awaiting_approval",
+    "question": "/ticket Verificar incidente P1 sintético",
+    "strategy": "agent",
+    "answer": "Operação preparada. Um administrador deve aprovar a criação do ticket.",
+    "sources": [],
+    "events": [
+      {
+        "type": "status",
+        "data": {
+          "status": "queued"
+        }
+      },
+      {
+        "type": "status",
+        "data": {
+          "status": "running"
+        }
+      },
+      {
+        "type": "plan",
+        "data": {
+          "strategy": "agent",
+          "max_steps": 12,
+          "public_plan": [
+            "authorize",
+            "retrieve",
+            "compose",
+            "verify"
+          ]
+        }
+      },
+      {
+        "type": "tool",
+        "data": {
+          "name": "tickets.propose",
+          "authorized": true
+        }
+      },
+      {
+        "type": "approval",
+        "data": {
+          "id": "a634538d770f4cd2a5de110fe66e5dc3",
+          "action": "ticket.create",
+          "arguments": {
+            "title": "Verificar incidente P1 sintético"
+          },
+          "status": "pending"
+        }
+      }
+    ],
+    "usage": {
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": 0,
+      "model": "pending"
+    },
+    "latency_ms": 0.0,
+    "approval_id": "a634538d770f4cd2a5de110fe66e5dc3",
+    "conversation_id": null,
+    "error": null
+  },
+  "ticket": {
+    "status": "approved",
+    "ticket_id": "e763dbf8b31c446797ef694100fad1eb"
+  },
+  "checks": [
+    "HTTP login",
+    "ingestion",
+    "answer with retrieved sources",
+    "SSE events",
+    "tenant isolation",
+    "approval isolation",
+    "idempotent ticket"
+  ],
+  "quality_note": "Smoke validates plumbing and constraints, not broad semantic correctness."
+}

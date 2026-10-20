@@ -1,0 +1,17 @@
+{
+  "transport": "stdio",
+  "protocol": "2025-03-26",
+  "server": "Atlas scoped tools",
+  "tools": [
+    "tickets_list",
+    "documents_list",
+    "tickets_propose"
+  ],
+  "read_ok": true,
+  "proposal_awaited_human_approval": true,
+  "ticket": {
+    "status": "approved",
+    "ticket_id": "34af3793dd0144baba9b2ecaf05189de"
+  },
+  "scope_policy": "tickets:write permits proposal only; REST approval still required"
+}
