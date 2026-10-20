@@ -1,0 +1,14 @@
+region = "us-east-1"
+name = "atlas"
+vpc_id = "vpc-REPLACE"
+private_subnet_ids = ["subnet-REPLACE-A", "subnet-REPLACE-B"]
+client_cidr = "10.0.0.0/16"
+certificate_arn = "arn:aws:acm:us-east-1:ACCOUNT:certificate/REPLACE"
+api_image = "ACCOUNT.dkr.ecr.us-east-1.amazonaws.com/atlas@sha256:REPLACE_WITH_64_HEX_CHARACTERS"
+config_secret_arn = "arn:aws:secretsmanager:us-east-1:ACCOUNT:secret:atlas-REPLACE"
+database_security_group_id = "sg-REPLACE"
+cors_origins = "https://atlas.internal.example"
+# Fill from an approved current regional price sheet; intentionally not executable defaults.
+price_version = "REPLACE_WITH_APPROVED_PRICE_TABLE_VERSION"
+input_usd_per_million = 0
+output_usd_per_million = 0
