@@ -2,8 +2,8 @@ from concurrent.futures import ThreadPoolExecutor
 import pytest
 from sqlalchemy import select
 
-from packages.retrieval.pipeline import cached_corpus
-from services.api.db import Approval, Memory, Run, Tenant
+from packages.retrieval.pipeline import cached_corpus, embed, embedding_version, retrieve
+from services.api.db import Approval, Chunk, ContextCache, Document, Memory, Run, Tenant, now
 from services.worker.main import run_once
 from .conftest import auth, run
 
@@ -88,6 +88,75 @@ def test_dedup_version_cache_and_delete(client, headers, app):
     docs, hit = cached_corpus(app.state.db, "acme")
     assert hit is False
     assert all("7 dias" not in d["text"] for d in docs)
+
+
+def test_document_update_replaces_answer_citations_and_tenant_cache(client, headers, app):
+    first = seed(client, headers)
+    old_sources, _ = cached_corpus(app.state.db, "acme")
+    old_ids = {item["id"] for item in old_sources}
+    orbit = auth(client, "orbit")
+    orbit_doc = seed(client, orbit, content="O prazo do reembolso é de 21 dias úteis.")
+    orbit_sources, _ = cached_corpus(app.state.db, "orbit")
+    updated = seed(client, headers, content="O prazo do reembolso é de 9 dias úteis.")
+    assert updated["version"] == 2 and updated["id"] != first["id"]
+    current, hit = cached_corpus(app.state.db, "acme")
+    assert not hit and len(current) == 1
+    assert "9 dias" in current[0]["text"] and current[0]["id"] not in old_ids
+    assert cached_corpus(app.state.db, "orbit") == (orbit_sources, True)
+    assert [d["id"] for d in client.get("/api/documents", headers=headers).json()] == [updated["id"]]
+    assert [d["id"] for d in client.get("/api/documents", headers=orbit).json()] == [orbit_doc["id"]]
+    for strategy in ("rag", "cag"):
+        result = run(client, headers, strategy=strategy)
+        assert result["status"] == "completed", result
+        assert "9 dias" in result["answer"] and "7 dias" not in result["answer"]
+        assert {item["id"] for item in result["sources"]} == {current[0]["id"]}
+        assert current[0]["id"] in result["answer"]
+    assert "21 dias" in run(client, orbit)["answer"]
+    with app.state.db.sessions() as session:
+        assert session.scalars(select(Chunk).where(Chunk.document_id == first["id"])).all() == []
+        assert session.get(Document, first["id"]).version == 1
+    # Returning to a historical hash is a new publication, not stale deduplication.
+    restored = seed(client, headers)
+    assert restored["version"] == 3 and restored["id"] not in {first["id"], updated["id"]}
+    assert seed(client, headers)["id"] == restored["id"]
+    assert "7 dias" in run(client, headers)["answer"]
+
+
+def test_deleted_latest_cannot_resurrect_legacy_chunks_or_cache(client, headers, app):
+    first = seed(client, headers)
+    latest = seed(client, headers, content="O prazo do reembolso é de 9 dias úteis.")
+    # Simulate persisted content/cache from the older, all-versions implementation.
+    with app.state.db.transaction("acme") as session:
+        legacy = Chunk(tenant="acme", document_id=first["id"], position=0, text="O prazo do reembolso é de 7 dias úteis.", embedding=embed("O prazo do reembolso é de 7 dias úteis."), embedding_model=embedding_version())
+        session.add(legacy)
+        session.flush()
+        legacy_id = legacy.id
+        version = session.get(Tenant, "acme").corpus_version
+        session.add(ContextCache(key=f"acme:{version}:{embedding_version()}", tenant="acme", corpus_version=version, chunks=[{"id": legacy_id, "title": first["title"], "text": legacy.text, "score": 1.0}], expires_at=now() + 300))
+    assert all(item["id"] != legacy_id for item in retrieve(app.state.db, "acme", "prazo reembolso"))
+    current, hit = cached_corpus(app.state.db, "acme")
+    assert not hit and current and all(item["id"] != legacy_id for item in current)
+    assert client.delete("/api/documents/" + latest["id"], headers=headers).status_code == 200
+    assert client.get("/api/documents", headers=headers).json() == []
+    assert retrieve(app.state.db, "acme", "prazo reembolso") == []
+    assert cached_corpus(app.state.db, "acme") == ([], False)
+    for strategy in ("rag", "cag"):
+        result = run(client, headers, strategy=strategy)
+        assert result["status"] == "completed" and not result["sources"]
+        assert "evidência" in result["answer"]
+    # Even identical content after deletion gets a new active version.
+    reuploaded = seed(client, headers, content="O prazo do reembolso é de 9 dias úteis.")
+    assert reuploaded["version"] == 3 and reuploaded["id"] != latest["id"]
+    assert "9 dias" in run(client, headers)["answer"]
+    assert client.delete("/api/documents/" + first["id"], headers=headers).status_code == 200
+    assert "9 dias" in run(client, headers)["answer"]
+
+
+def test_identical_content_under_distinct_titles_is_not_deduplicated(client, headers):
+    first = seed(client, headers, title="Política A")
+    second = seed(client, headers, title="Política B")
+    assert first["id"] != second["id"] and first["version"] == second["version"] == 1
+    assert len(client.get("/api/documents", headers=headers).json()) == 2
 
 
 def test_memory_consent_delete(client, headers, app):

@@ -8,8 +8,9 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import make_url
 
+from packages.retrieval.pipeline import cached_corpus, embed, embedding_version
 from services.api.main import create_app
-from services.api.db import Database
+from services.api.db import Chunk, Database
 from .conftest import auth, run
 
 
@@ -43,6 +44,23 @@ def test_postgres_vector_and_budget_transaction(monkeypatch):
             result = run(client, headers, "Qual prazo do reembolso?")
             assert result["status"] == "completed", result
             assert result["sources"]
+            old_source = result["sources"][0]
+            cached_corpus(app.state.db, "acme")
+            updated = client.post("/api/documents", headers=headers, json={"title": "Política", "content": "Reembolso em nove dias úteis após aprovação."}).json()
+            assert updated["version"] == 2
+            # Legacy chunks must be excluded by PostgreSQL's vector query too.
+            with app.state.db.transaction("acme") as session:
+                session.add(Chunk(tenant="acme", document_id=response.json()["id"], position=0, text=old_source["text"], embedding=embed(old_source["text"]), embedding_model=embedding_version()))
+            for strategy in ("rag", "cag"):
+                current = run(client, headers, "Qual prazo do reembolso?", strategy)
+                assert current["status"] == "completed", current
+                assert "nove dias" in current["answer"] and "sete dias" not in current["answer"]
+                assert len(current["sources"]) == 1 and current["sources"][0]["id"] != old_source["id"]
+            assert client.delete("/api/documents/" + updated["id"], headers=headers).status_code == 200
+            assert not run(client, headers, "Qual prazo do reembolso?")["sources"]
+            assert cached_corpus(app.state.db, "acme")[0] == []
+            restored = client.post("/api/documents", headers=headers, json={"title": "Política", "content": "Reembolso em sete dias úteis após aprovação."}).json()
+            assert restored["version"] == 3
             with app.state.db.sessions() as session:
                 assert session.execute(text("SELECT vector_dims(embedding) FROM chunks LIMIT 1")).scalar() == 384
             assert client.get("/api/usage", headers=headers).json()["reserved_tokens"] == 0

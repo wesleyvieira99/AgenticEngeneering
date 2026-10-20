@@ -20,7 +20,7 @@ from packages.model_gateway.gateway import Gateway
 from packages.observability.tracing import configure
 from packages.orchestration.engine import Executor, TERMINAL
 from packages.orchestration.checkpoints import erase as erase_checkpoint
-from packages.retrieval.pipeline import document_dict, ingest, reindex
+from packages.retrieval.pipeline import current_documents, document_dict, ingest, reindex
 from packages.security.auth import Auth, require_role
 from packages.tools.registry import decide_approval, list_tickets
 from services.api.db import Approval, Chunk, ContextCache, Database, Document, Event, Memory, Run, Tenant, uid
@@ -94,7 +94,7 @@ def create_app(database_url=None, mode=None):
     @app.get("/api/documents")
     def documents(p=Depends(principal)):
         with db.sessions() as s:
-            return [document_dict(d) for d in s.scalars(select(Document).where(Document.tenant == p.tenant).order_by(Document.created_at.desc()))]
+            return [document_dict(d) for d in s.scalars(current_documents(p.tenant).order_by(Document.created_at.desc()))]
 
     @app.post("/api/documents", status_code=201)
     def upload(data: DocumentInput, p=Depends(principal)):
@@ -112,7 +112,7 @@ def create_app(database_url=None, mode=None):
         with db.transaction(p.tenant) as s:
             doc = owned(s, Document, key, p.tenant)
             s.execute(delete(Chunk).where(Chunk.document_id == doc.id, Chunk.tenant == p.tenant))
-            s.delete(doc)
+            # Retain metadata as a tombstone so an earlier version cannot revive.
             s.get(Tenant, p.tenant).corpus_version += 1
             s.execute(delete(ContextCache).where(ContextCache.tenant == p.tenant))
         return {"deleted": True}

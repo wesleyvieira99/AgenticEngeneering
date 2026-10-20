@@ -12,6 +12,7 @@ from collections import Counter
 
 from fastapi import HTTPException
 from sqlalchemy import delete, select
+from sqlalchemy.orm import aliased
 
 from services.api.db import Chunk, ContextCache, Document, Tenant, now, uid
 
@@ -66,11 +67,14 @@ def ingest(db, tenant, title, content):
     parts = chunk_text(normalized)
     vectors = [embed(part) for part in parts]
     with db.transaction(tenant) as s:
-        duplicate = s.scalar(select(Document).where(Document.tenant == tenant, Document.content_hash == digest))
-        if duplicate:
-            return document_dict(duplicate)
-        versions = s.scalars(select(Document.version).where(Document.tenant == tenant, Document.title == title)).all()
-        doc = Document(id=uid(), tenant=tenant, title=title, content_hash=digest, version=max(versions, default=0) + 1)
+        previous = s.scalar(select(Document).where(Document.tenant == tenant, Document.title == title).order_by(Document.version.desc()).limit(1))
+        if previous and previous.content_hash == digest and s.scalar(select(Chunk.id).where(Chunk.tenant == tenant, Chunk.document_id == previous.id).limit(1)):
+            return document_dict(previous)
+        doc = Document(id=uid(), tenant=tenant, title=title, content_hash=digest, version=previous.version + 1 if previous else 1)
+        # Keep version metadata, but replace the searchable content atomically.
+        # A latest metadata row without chunks is a deletion tombstone.
+        old_ids = select(Document.id).where(Document.tenant == tenant, Document.title == title)
+        s.execute(delete(Chunk).where(Chunk.tenant == tenant, Chunk.document_id.in_(old_ids)))
         s.add(doc)
         s.flush()
         for pos, (text, vector) in enumerate(zip(parts, vectors)):
@@ -85,13 +89,28 @@ def document_dict(doc):
     return {"id": doc.id, "title": doc.title, "version": doc.version, "created_at": doc.created_at}
 
 
+def latest_document():
+    """Include tombstones when deciding which version is current.
+
+    This filter also hides historical chunks left by deployments predating
+    transactional replacement. Removing the newest chunks cannot revive them.
+    """
+    newer = aliased(Document)
+    return ~select(newer.id).where(newer.tenant == Document.tenant, newer.title == Document.title, newer.version > Document.version).correlate(Document).exists()
+
+
+def current_documents(tenant):
+    has_chunks = select(Chunk.id).where(Chunk.tenant == Document.tenant, Chunk.document_id == Document.id).correlate(Document).exists()
+    return select(Document).where(Document.tenant == tenant, latest_document(), has_chunks)
+
+
 def source(chunk, doc, score=0.0):
     return {"id": chunk.id, "title": doc.title, "text": chunk.text, "score": round(score, 6)}
 
 
 def retrieve(db, tenant, query, limit=5):
     with db.sessions() as s:
-        rows = s.execute(select(Chunk, Document).join(Document).where(Chunk.tenant == tenant, Document.tenant == tenant)).all()
+        rows = s.execute(select(Chunk, Document).join(Document).where(Chunk.tenant == tenant, Document.tenant == tenant, latest_document())).all()
         if not rows:
             return []
         if any(c.embedding_model != embedding_version() for c, _ in rows):
@@ -111,7 +130,7 @@ def retrieve(db, tenant, query, limit=5):
             bm.append((c.id, score))
         qvec = embed(query)
         if db.engine.dialect.name == "postgresql":
-            vector_ids = list(s.scalars(select(Chunk.id).where(Chunk.tenant == tenant).order_by(Chunk.embedding.cosine_distance(qvec)).limit(max(20, limit))))
+            vector_ids = list(s.scalars(select(Chunk.id).join(Document).where(Chunk.tenant == tenant, Document.tenant == tenant, latest_document()).order_by(Chunk.embedding.cosine_distance(qvec)).limit(max(20, limit))))
         else:
             vector_ids = [c.id for c, _ in sorted(rows, key=lambda row: -sum(a * b for a, b in zip(row[0].embedding, qvec)))][:max(20, limit)]
         candidates = [source(c, d) for c, d in rows]
@@ -154,11 +173,12 @@ def cached_corpus(db, tenant):
     """CAG variant: tenant/version keyed preloaded source context; no provider KV cache."""
     with db.transaction(tenant) as s:
         version = s.get(Tenant, tenant).corpus_version
-        key = f"{tenant}:{version}:{embedding_version()}"
+        # Namespace invalidates cache entries written before latest-only policy.
+        key = f"current-v1:{tenant}:{version}:{embedding_version()}"
         cache = s.get(ContextCache, key)
         if cache and cache.expires_at > now():
             return cache.chunks, True
-        rows = s.execute(select(Chunk, Document).join(Document).where(Chunk.tenant == tenant, Document.tenant == tenant).order_by(Document.id, Chunk.position).limit(25)).all()
+        rows = s.execute(select(Chunk, Document).join(Document).where(Chunk.tenant == tenant, Document.tenant == tenant, latest_document()).order_by(Document.id, Chunk.position).limit(25)).all()
         if len(rows) > 24:
             raise HTTPException(422, "CAG suporta até 24 chunks; use RAG ou reduza o corpus")
         chunks = [source(c, d) for c, d in rows]
@@ -173,7 +193,7 @@ def reindex(db, tenant):
     """Explicit embedding migration; compute outside locks, then compare corpus version."""
     with db.sessions() as s:
         version = s.get(Tenant, tenant).corpus_version
-        chunks = s.scalars(select(Chunk).where(Chunk.tenant == tenant)).all()
+        chunks = s.scalars(select(Chunk).join(Document).where(Chunk.tenant == tenant, Document.tenant == tenant, latest_document())).all()
     vectors = {c.id: embed(c.text) for c in chunks}
     with db.transaction(tenant) as s:
         current = s.get(Tenant, tenant)
