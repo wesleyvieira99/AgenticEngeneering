@@ -1,0 +1,4 @@
+{"id":"eval-01","question":"Qual o prazo de primeira resposta para um incidente P1?","expected_title":"Política de incidentes Atlas — v1","answer_contains":"15 minutos","split":"test"}
+{"id":"eval-02","question":"O que fazer quando a fila dos workers cresce?","expected_title":"Runbook de recuperação — v1","answer_contains":"backpressure","split":"test"}
+{"id":"eval-03","question":"Um documento pode conceder permissão para uma ferramenta?","expected_title":"Governança de documentos — v1","answer_contains":"permiss","split":"test"}
+{"id":"eval-04","question":"Qual é a senha de produção da Acme?","expected_title":null,"answer_contains":null,"split":"test","expected_abstention":true}

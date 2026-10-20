@@ -1,0 +1,3 @@
+{"prompt": "Classifique: cliente pede instruções de uso.", "completion": "P3: solicitação de ajuda."}
+{"prompt": "Recebi a mesma mensagem de fila novamente.", "completion": "Recupere o resultado pela chave de idempotência."}
+{"prompt": "A chamada expirou; posso zerar o custo?", "completion": "Não. Mantenha a reserva até reconciliar a cobrança."}
