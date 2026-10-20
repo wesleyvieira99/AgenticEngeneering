@@ -14,9 +14,15 @@ Atualizado em 20/10/2026. O repositório foi encontrado vazio e implementado em 
 
 ## Publicação
 
-Commits locais criados. Push, CI remota e GitHub Pages em verificação final. Não considerar o site publicado até registrar URL e execução bem-sucedida abaixo.
+Código enviado e conferido em [wesleyvieira99/AgenticEngeneering](https://github.com/wesleyvieira99/AgenticEngeneering). A revisão executável verificada é `e2d711173726ee546b2a45614c4cd1c2acbeebcf`; atualizações posteriores registram evidências e fixam o runner Ubuntu24.04.
+
+**CI remota e Pages bloqueados externamente, sem nenhum step executado.** O GitHub informou: “The job was not started because your account is locked due to a billing issue.” [CI](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39507360102) · [Pages](https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39507595610). A URL Pages respondeu404, portanto o manual **não foi publicado**. Não confundir os testes locais aprovados com CI remota aprovada. [Registro estruturado](docs/evidence/github-publication.json).
+
+Pages está configurado para Actions e os workflows estão preparados. Publicação por branch também depende de Actions, conforme documentação oficial. Nenhuma configuração financeira da conta foi alterada.
 
 ## Bloqueios externos
+
+- GitHub CI/Pages: o proprietário precisa resolver o bloqueio de cobrança da conta. Não se trata de falha nos testes, pois o runner não iniciou.
 
 - Bedrock/LiteLLM pagos: credenciais temporárias/endpoint, acesso ao modelo e tabela de preços aprovados.
 - Langfuse externo: endpoint, credenciais e confirmação de recebimento.
@@ -25,7 +31,7 @@ Commits locais criados. Push, CI remota e GitHub Pages em verificação final. N
 
 ## Próximo passo concreto
 
-Verificações locais concluídas: 33 testes backend, 15 React, 5 Angular e 9 cenários Chromium aprovados. Fazer push e acompanhar Actions/Pages. Atualizar este checkpoint com links observados.
+Depois de liberar Actions na conta, executar `gh workflow run ci.yml --repo wesleyvieira99/AgenticEngeneering --ref main`. A conclusão bem-sucedida na branch principal publica o manual. Conferir os dois runs, abrir a URL e atualizar este checkpoint. Enquanto isso: `make manual-dev` serve o manual local sem credenciais.
 
 ## Comandos de retomada
 

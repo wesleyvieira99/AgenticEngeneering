@@ -1,6 +1,6 @@
 # Relatório de entrega Atlas
 
-Entrega implementada e verificada localmente em 20/10/2026. O status de publicação está registrado em CHECKPOINT.md. O caminho principal é real: API e banco persistem documentos/tickets; Ollama executa inferência e embeddings; os dois clientes usam HTTP e SSE. O manual é estático e não simula um backend.
+Entrega implementada e verificada localmente em 20/10/2026. Código enviado ao GitHub. CI remota e GitHub Pages foram bloqueados pela conta por cobrança antes de iniciar; o manual funciona localmente. Evidência e retomada em CHECKPOINT.md. O caminho principal é real: API e banco persistem documentos/tickets; Ollama executa inferência e embeddings; os dois clientes usam HTTP e SSE. O manual é estático e não simula um backend.
 
 ## Entregas
 

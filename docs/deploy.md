@@ -4,6 +4,22 @@
 
 A workflow Pages publica `apps/manual/dist`. Usa rotas hash, assets relativos e índice estático no caminho exato `/AgenticEngeneering/`. O build extrai snippets do código real. Pages não executa Python, não guarda documentos e não é backend dos clientes. Veja status da Action e abra a URL publicada antes de declarar publicação concluída.
 
+### Estado verificado em 20/10/2026
+
+O push foi concluído e Pages configurado, mas CI e publicação não iniciaram: o GitHub retornou bloqueio de conta por cobrança. A URL prevista `https://wesleyvieira99.github.io/AgenticEngeneering/` respondeu404. [Evidência](evidence/github-publication.json). Não houve tentativa de alterar pagamento ou criar infraestrutura paga.
+
+A [documentação oficial de publishing sources](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) esclarece que inclusive publicação por branch usa Actions. Mudar a fonte não elimina essa dependência. O manual estático está construído e pode ser servido com `make manual-dev`.
+
+Após regularizar a conta:
+
+```sh
+gh workflow run ci.yml --repo wesleyvieira99/AgenticEngeneering --ref main
+gh run list --repo wesleyvieira99/AgenticEngeneering
+# Após CI aprovada, acompanhar Publish manual e conferir a URL real.
+```
+
+O runner foi fixado em Ubuntu24.04 para evitar a migração anunciada do label ubuntu-latest durante esta entrega. A retomada da CI remota continua pendente; não foi validada em um runner GitHub.
+
 ## Local com Compose
 
 Na raiz: copie `.env.example` para `.env`, mantenha segredos locais, execute `docker compose -f infra/local/compose.yml --env-file .env up --build --wait -d`. API8000, PostgreSQL54329; ambos bind localhost. Suba React5173/Angular4200 separadamente. Para parar: `docker compose -f infra/local/compose.yml down` (sem `-v`). Se8000 estiver em uso, configure mapeamento/porta sem encerrar processos alheios.

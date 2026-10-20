@@ -35,3 +35,4 @@ LiteLLM proxy externo,#/capitulo/finops,packages/model_gateway/gateway.py,docs/f
 Avaliações métricas rollout incidentes,#/capitulo/avaliacoes,scripts/evaluate.py,scripts/evaluate.py,tests/backend/test_api.py,docs/evidence/evaluation.json,testado localmente,4perguntas sintéticas; expandir holdout antes de decisões
 Oito arquiteturas mesmas tarefas,#/capitulo/arquiteturas,packages/orchestration/engine.py,scripts/evaluate.py,tests/backend/test_api.py,docs/evidence/evaluation.json,testado localmente,
 Manual progresso busca quiz notas e simuladores,#/capitulo/atlas,apps/manual,apps/manual,tests/e2e/manual.spec.js;apps/manual/math.test.mjs,docs/evidence/e2e.txt,testado localmente,Progresso autodeclarado; publicação acompanhada em CHECKPOINT.md
+Publicação GitHub Actions e Pages,#/capitulo/atlas,.github/workflows/pages.yml;.github/workflows/ci.yml,docs/deploy.md,,docs/evidence/github-publication.json,bloqueado,GitHub bloqueou conta por cobrança antes de iniciar jobs

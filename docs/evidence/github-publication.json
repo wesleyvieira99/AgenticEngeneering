@@ -1,0 +1,46 @@
+{
+  "checked": "2026-10-20",
+  "source_revision": "e2d711173726ee546b2a45614c4cd1c2acbeebcf",
+  "repository": "https://github.com/wesleyvieira99/AgenticEngeneering",
+  "push_verified": true,
+  "ci": {
+    "conclusion": "failure",
+    "jobs": [
+      {
+        "completedAt": "2026-10-20T22:20:21Z",
+        "conclusion": "failure",
+        "databaseId": 118919527832,
+        "name": "verify",
+        "startedAt": "2026-10-20T22:20:19Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39507360102/job/118919527832"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39507360102"
+  },
+  "pages": {
+    "conclusion": "failure",
+    "jobs": [
+      {
+        "completedAt": "2026-10-20T22:22:18Z",
+        "conclusion": "failure",
+        "databaseId": 118920323906,
+        "name": "publish",
+        "startedAt": "2026-10-20T22:22:14Z",
+        "status": "completed",
+        "steps": [],
+        "url": "https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39507595610/job/118920323906"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/wesleyvieira99/AgenticEngeneering/actions/runs/39507595610"
+  },
+  "blocking_annotation": "The job was not started because your account is locked due to a billing issue.",
+  "steps_executed": 0,
+  "pages_http_status": 404,
+  "pages_published": false,
+  "local_tests": "33 backend including PostgreSQL; 15 React; 5 Angular; 9 Chromium scenarios; local builds pass",
+  "next_action": "Account owner resolves GitHub billing lock, then dispatches Atlas CI on main; successful trusted CI triggers Pages."
+}

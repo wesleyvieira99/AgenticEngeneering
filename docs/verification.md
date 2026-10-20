@@ -20,7 +20,7 @@ Registro da sessão de 2026-10-20. Ambiente: macOS Apple Silicon24GB, Python3.12
 | Chromium desktop/mobile | 9 cenários: jornadas, cancelamento/retomada, troca de tenant, estudo e nove laboratórios | [log](evidence/e2e.txt) |
 | Manual | 28 capítulos, 19 pontos/capítulo, 12 snippets e 108 linhas sincronizadas | [build](evidence/manual-build.txt) |
 | Fontes externas | 42/42 URLs acessíveis no momento da verificação; não é garantia de disponibilidade futura | [auditoria](evidence/source-check-summary.json) |
-| GitHub CI/Pages | Estado remoto registrado após execução | [checkpoint](../CHECKPOINT.md) |
+| GitHub CI/Pages | Bloqueio de conta por cobrança; zero steps executados; Pages404 | [evidência](evidence/github-publication.json) |
 
 ## Qualidade e limites da evidência
 
