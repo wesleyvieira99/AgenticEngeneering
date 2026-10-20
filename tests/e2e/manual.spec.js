@@ -1,0 +1,86 @@
+const { test, expect } = require('@playwright/test');
+const URL=process.env.ATLAS_MANUAL_URL || 'http://127.0.0.1:4173';
+test('Manual: content, progress, notes, vector experiment and mobile layout', async({page})=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(URL);
+  await expect(page.locator('h1')).toBeVisible();
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await page.screenshot({path:'../../docs/evidence/manual-desktop.png',fullPage:true});
+  await page.goto(URL+'/#/capitulo/atencao');
+  await expect(page.locator('h1')).toContainText('Transformer');
+  await expect(page.locator('[data-complete]').first()).toBeVisible();
+  await page.locator('[data-complete]').first().click();
+  await page.locator('#chapter-notes').fill('Minha evidência: máscara causal zera atenção futura.');
+  await page.locator('#chapter-notes').blur();
+  await page.reload();
+  await expect(page.locator('#chapter-notes')).toHaveValue('Minha evidência: máscara causal zera atenção futura.');
+  await page.locator('[data-favorite]').click();
+  const quiz=page.locator('[data-quiz][data-answer]').first();
+  await expect(quiz).toBeVisible();await quiz.click();
+  await page.goto(URL+'/#/laboratorios/vectors');
+  await page.locator('#v-q').fill('1,0');
+  await page.locator('#v-q').dispatchEvent('input');
+  await expect(page.locator('main')).toContainText(/cosseno/i);
+  await page.locator('#search-button').click();
+  await page.locator('#global-search').fill('idempotência');
+  await expect(page.locator('#search-results')).toContainText(/aprova|ferramenta|idempot/i);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#search-dialog')).not.toBeVisible();
+  await page.locator('#search-button').click();
+  await page.goto(URL+'/#/capitulo/atlas');
+  await expect(page.locator('#search-dialog')).not.toBeVisible();
+  await page.setViewportSize({width:390,height:844});
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.goto(URL+'/#/capitulo/atencao');
+  await page.reload();
+  await expect(page.locator('h1')).toContainText('Transformer');
+  await expect(page.locator('#menu-button')).toHaveAttribute('aria-expanded','false');
+  await page.evaluate(()=>window.scrollTo(0,0));
+  await page.screenshot({path:'../../docs/evidence/manual-mobile.png',fullPage:false});
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();
+  expect(errors).toEqual([]);
+});
+test('Manual: export/import preserves study and every chapter deep-link resolves',async({page,request})=>{
+  const data=await (await request.get(URL+'/data.json')).json();
+  await page.goto(URL+'/#/capitulo/atlas');
+  await page.locator('[data-complete]').first().click();
+  await page.locator('#chapter-notes').fill('Evidência exportável.');
+  await page.locator('#chapter-notes').blur();
+  await page.goto(URL+'/#/estudo');
+  const promise=page.waitForEvent('download');
+  await page.locator('#export-study').click();
+  const download=await promise;
+  const fs=require('node:fs');
+  const exported=fs.readFileSync(await download.path());
+  expect(JSON.parse(exported).completed).toContain('atlas');
+  await page.evaluate(()=>localStorage.removeItem('atlas-study-v1'));
+  await page.reload();
+  await page.locator('#import-file').setInputFiles({name:'study.json',mimeType:'application/json',buffer:exported});
+  await page.goto(URL+'/#/capitulo/atlas');
+  await expect(page.locator('#chapter-notes')).toHaveValue('Evidência exportável.');
+  for(const chapter of data.chapters){
+    await page.goto(URL+'/#/capitulo/'+chapter.id);
+    await expect(page.locator('h1')).toHaveText(chapter.title);
+    await expect(page.locator('.reading-body > section[id]')).toHaveCount(19);
+  }
+});
+test('Manual: all nine laboratories update from user input without errors',async({page})=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.setViewportSize({width:390,height:844});
+  const cases=[['vectors','#v-q','0,1'],['attention','#a-q','0,1'],['tokens','#t-text','IA 🧠'],['context','#c-window','1024'],['cost','#f-input','5000'],['concurrency','#n-slots','1'],['gradient','#g-rate','0.2'],['workflow'],['architectures']];
+  for(const [id,selector,value] of cases){
+    await page.goto(URL+'/#/laboratorios/'+id);
+    const output=page.locator('#lab-output');
+    await expect(output).toBeVisible();
+    await expect(output).not.toBeEmpty();
+    await expect(output.locator('[role="alert"]')).toHaveCount(0);
+    const previous=await output.innerText();
+    if(id==='workflow')await page.locator('[data-workflow-next]').click();
+    else if(id==='architectures')await page.locator('#arch-left').selectOption('baseline');
+    else await page.locator(selector).fill(value);
+    await expect(output).not.toHaveText(previous);
+    await expect(output.locator('[role="alert"]')).toHaveCount(0);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();
+  }
+  expect(errors).toEqual([]);
+});

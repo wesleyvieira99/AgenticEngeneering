@@ -1,0 +1,796 @@
+<a href="#main" class="skip-link">Pular para o conteúdo</a>
+@if (!state().session) {
+  <main id="main" class="login-page">
+    <header>
+      <div class="brand">
+        <span class="brand-mark"><atlas-icon name="spark" /></span
+        ><span>atlas<span class="brand-period">.</span></span>
+      </div>
+      <span class="framework-tag">Angular client</span>
+    </header>
+    <div class="login-grid">
+      <section class="login-story">
+        <div class="eyebrow">
+          <span class="live-dot"></span> KNOWLEDGE & OPERATIONS
+        </div>
+        <h1>Conhecimento.<br />Com direção.</h1>
+        <p>
+          Da primeira pergunta à próxima ação.<br />Um workspace para explorar
+          evidências<br class="desktop-only" />
+          e operar com confiança.
+        </p>
+        <div class="login-features">
+          <span><atlas-icon name="file" />Respostas com fontes</span
+          ><span><atlas-icon name="shield" />Você aprova as ações</span
+          ><span><atlas-icon name="chart" />Consumo transparente</span>
+        </div>
+        <div class="login-footer">
+          ATLAS ENGINEERING <span>Conheça. Experimente. Construa.</span>
+        </div>
+      </section>
+      <section class="login-card surface">
+        <div class="eyebrow">SEU WORKSPACE</div>
+        <h2>Bem-vindo ao Atlas</h2>
+        <p>Entre na sua organização para começar.</p>
+        <form (ngSubmit)="login()">
+          <label
+            >Endereço da API<input
+              name="base"
+              type="url"
+              [(ngModel)]="base"
+              required /></label
+          ><label
+            >Organização<select
+              aria-label="Organização"
+              name="tenant"
+              [(ngModel)]="tenant"
+            >
+              <option value="acme">Acme</option>
+              <option value="orbit">Orbit</option>
+            </select></label
+          ><label
+            >Usuário<input
+              name="username"
+              autocomplete="username"
+              [(ngModel)]="username"
+              required /></label
+          ><label
+            >Senha<input
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              placeholder="Sua senha de acesso"
+              [(ngModel)]="password"
+              required
+          /></label>
+          @if (state().error) {
+            <p class="alert error" role="alert">{{ state().error }}</p>
+          }
+          <button class="primary wide" [disabled]="state().busy" type="submit">
+            {{ state().busy ? 'Conectando…' : 'Entrar no workspace'
+            }}<atlas-icon name="arrow" />
+          </button>
+        </form>
+        <div class="dev-note">
+          <atlas-icon name="shield" />
+          <p>
+            Ambiente de desenvolvimento.<br />Senha local padrão:
+            <code>atlas-local-only</code>.<br />Use a senha configurada no
+            servidor.
+          </p>
+        </div>
+        <div class="api-address">
+          <span class="live-dot" [class.offline]="!state().health"></span
+          >{{
+            state().health
+              ? 'API conectada · ' + state().health!.mode
+              : 'API aguardando conexão'
+          }}<code>{{ store.api.base }}</code>
+        </div>
+      </section>
+    </div>
+  </main>
+  <button
+    class="theme-login quiet"
+    aria-label="Alternar tema"
+    (click)="toggleTheme()"
+  >
+    <atlas-icon name="sun" />
+  </button>
+} @else {
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark"><atlas-icon name="spark" /></span
+        ><span>atlas<span class="brand-period">.</span></span>
+      </div>
+      <div class="tenant-switch">
+        <span class="tenant-avatar">{{
+          state().session!.tenant.slice(0, 1).toUpperCase()
+        }}</span>
+        <div>
+          <strong>{{ state().session!.tenant }}</strong
+          ><small>Workspace da organização</small>
+        </div>
+        <span class="tenant-dot"></span>
+      </div>
+      <div class="nav-label">PLATAFORMA</div>
+      <nav aria-label="Navegação principal">
+        @for (item of navigation; track item.id) {
+          <button
+            [class.selected]="page() === item.id"
+            [attr.aria-current]="page() === item.id ? 'page' : null"
+            (click)="page.set(item.id)"
+          >
+            <atlas-icon [name]="item.icon" /><span>{{ item.title }}</span>
+            @if (item.id === 'approvals' && pending() > 0) {
+              <span class="nav-count">{{ pending() }}</span>
+            }
+          </button>
+        }
+      </nav>
+      <div class="sidebar-note">
+        <atlas-icon name="shield" /><strong>Confiança verificável.</strong>
+        <p>Fontes, permissões e consumo acompanham cada execução.</p>
+      </div>
+      <div class="sidebar-footer">
+        <span class="framework-tag">Angular client</span
+        ><button
+          class="quiet"
+          aria-label="Sair do workspace"
+          (click)="logout()"
+        >
+          <atlas-icon name="logout" />
+        </button>
+      </div>
+    </aside>
+    <div class="main-shell">
+      <header class="topbar">
+        <div class="breadcrumb">
+          Workspace <span>/</span><strong>{{ selected()?.title }}</strong>
+        </div>
+        <div class="top-actions">
+          <span class="connection"
+            ><span class="live-dot" [class.offline]="!state().health"></span
+            >{{ state().health?.mode ?? 'API indisponível' }}</span
+          ><button
+            class="quiet"
+            aria-label="Atualizar workspace"
+            [disabled]="state().busy"
+            (click)="store.reload()"
+          >
+            <atlas-icon name="refresh" /></button
+          ><button
+            class="quiet"
+            aria-label="Alternar tema"
+            (click)="toggleTheme()"
+          >
+            <atlas-icon name="sun" /></button
+          ><button
+            class="quiet mobile-logout"
+            aria-label="Sair do workspace"
+            (click)="logout()"
+          >
+            <atlas-icon name="logout" /></button
+          ><span class="profile">{{
+            state().session!.role.slice(0, 1).toUpperCase()
+          }}</span>
+        </div>
+      </header>
+      <main id="main" class="main-content">
+        @if (state().error) {
+          <div class="alert error" role="alert">{{ state().error }}</div>
+        }
+        @if (state().notice) {
+          <div class="alert notice" role="status">{{ state().notice }}</div>
+        }
+        @switch (page()) {
+          @case ('workspace') {
+            <div class="page-heading">
+              <div>
+                <div class="eyebrow">SEU CONHECIMENTO, EM MOVIMENTO</div>
+                <h1>Pergunte. Verifique. Execute.</h1>
+                <p>
+                  Explore sua base e transforme evidências em próximas ações.
+                </p>
+              </div>
+              <button
+                class="secondary"
+                [disabled]="active(run()?.status) || state().busy"
+                (click)="store.newConversation()"
+              >
+                <atlas-icon name="plus" />Nova conversa
+              </button>
+            </div>
+            <div class="workspace-grid">
+              <section class="conversation">
+                <div class="surface chat-panel">
+                  @if (run(); as item) {
+                    <div class="run-meta">
+                      <span class="status" [class]="'status ' + item.status"
+                        ><span class="live-dot"></span
+                        >{{ statusLabel(item.status) }}</span
+                      ><span>{{ strategyName(item.strategy) }}</span>
+                    </div>
+                    <div class="question-block">
+                      <span class="avatar user-avatar">V</span>
+                      <div>
+                        <span class="speaker">Você</span>
+                        <p>{{ item.question }}</p>
+                      </div>
+                    </div>
+                    <div class="answer-block">
+                      <span class="avatar atlas-avatar"
+                        ><atlas-icon name="spark"
+                      /></span>
+                      <div>
+                        <span class="speaker"
+                          >Atlas
+                          <span class="subtle"
+                            >/ resposta fundamentada</span
+                          ></span
+                        >
+                        @if (item.answer) {
+                          <div class="answer-text">
+                            @for (
+                              part of answerParts(item.answer);
+                              track $index
+                            ) {
+                              @if (sourceNumber(part); as citation) {
+                                <a
+                                  [href]="'#source-' + citation"
+                                  [attr.aria-label]="'Fonte ' + citation"
+                                  >[{{ citation }}]</a
+                                >
+                              } @else {
+                                {{ part }}
+                              }
+                            }
+                          </div>
+                        } @else {
+                          <p class="muted" role="status">
+                            {{
+                              active(item.status)
+                                ? 'Construindo a resposta…'
+                                : 'A execução não produziu uma resposta.'
+                            }}
+                          </p>
+                        }
+                        @if (item.error) {
+                          <p class="alert error">{{ item.error }}</p>
+                        }
+                        @if (item.status === 'awaiting_approval') {
+                          <button
+                            class="secondary"
+                            (click)="page.set('approvals')"
+                          >
+                            <atlas-icon name="shield" />Revisar ação pendente
+                          </button>
+                        }
+                      </div>
+                    </div>
+                    <div class="run-actions">
+                      <code>run · {{ item.id.slice(0, 12) }}</code>
+                      @if (active(item.status)) {
+                        <button class="danger-quiet" (click)="store.cancel()">
+                          Cancelar execução
+                        </button>
+                      }
+                      @if (
+                        item.status === 'failed' || item.status === 'cancelled'
+                      ) {
+                        <button
+                          class="secondary"
+                          [disabled]="state().busy"
+                          (click)="store.resume()"
+                        >
+                          Retomar execução
+                        </button>
+                      }
+                      @if (!state().observing) {
+                        <button
+                          class="quiet"
+                          [disabled]="state().busy"
+                          (click)="store.selectRun(item.id)"
+                        >
+                          <atlas-icon name="refresh" />Atualizar execução
+                        </button>
+                      }
+                    </div>
+                  } @else {
+                    <div class="welcome-chat">
+                      <div class="orb"><atlas-icon name="spark" /></div>
+                      <div class="eyebrow">COM CONTEXTO, VAMOS ALÉM</div>
+                      <h2>O que vamos descobrir?</h2>
+                      <p>
+                        Pergunte sobre os documentos da sua organização.<br />As
+                        fontes acompanham cada resposta recuperada.
+                      </p>
+                      <div class="suggestions">
+                        <button
+                          (click)="question = 'Qual é a política de reembolso?'"
+                        >
+                          <atlas-icon name="file" /><span
+                            >Explorar uma política<small
+                              >Busque evidências nos documentos</small
+                            ></span
+                          ><atlas-icon name="arrow" /></button
+                        ><button
+                          (click)="
+                            question = '/ticket Revisar política de reembolso';
+                            strategy = 'agent'
+                          "
+                        >
+                          <atlas-icon name="shield" /><span
+                            >Preparar uma ação<small
+                              >Crie um ticket com sua aprovação</small
+                            ></span
+                          ><atlas-icon name="arrow" />
+                        </button>
+                      </div>
+                    </div>
+                  }
+                </div>
+                <form class="surface composer" (ngSubmit)="send()">
+                  <label class="sr-only" for="question">Pergunta</label
+                  ><textarea
+                    id="question"
+                    name="question"
+                    [(ngModel)]="question"
+                    placeholder="Pergunte sobre seus documentos ou prepare uma ação…"
+                    rows="3"
+                    maxlength="4000"
+                    required
+                  ></textarea>
+                  <div class="composer-bottom">
+                    <label class="strategy-control"
+                      ><atlas-icon name="spark" /><span class="sr-only"
+                        >Estratégia</span
+                      ><select
+                        aria-label="Estratégia"
+                        name="strategy"
+                        [(ngModel)]="strategy"
+                      >
+                        @for (item of strategies; track item.id) {
+                          <option [value]="item.id">{{ item.name }}</option>
+                        }
+                      </select></label
+                    ><button
+                      class="primary send"
+                      type="submit"
+                      [disabled]="
+                        state().busy ||
+                        active(run()?.status) ||
+                        !question.trim()
+                      "
+                    >
+                      <span>Enviar pergunta</span><atlas-icon name="up" />
+                    </button>
+                  </div>
+                  <p class="strategy-help">{{ strategyDetail() }}</p>
+                </form>
+                <div class="memory-controls">
+                  <label class="checkbox"
+                    ><input
+                      type="checkbox"
+                      [ngModel]="state().memory"
+                      (ngModelChange)="store.setMemory($event)"
+                    />Usar memória desta conversa</label
+                  >
+                  @if (run()?.conversation_id) {
+                    <button
+                      class="quiet danger-quiet"
+                      [disabled]="state().busy || active(run()?.status)"
+                      (click)="forget()"
+                    >
+                      Excluir memória
+                    </button>
+                  }
+                </div>
+                <p class="fineprint">
+                  A memória é opcional. Sem consentimento, o histórico não entra
+                  no contexto. Use <code>/tickets</code> para consultar tickets.
+                </p>
+              </section>
+              <atlas-inspector [run]="run()" />
+            </div>
+          }
+          @case ('documents') {
+            <div class="page-heading">
+              <div>
+                <div class="eyebrow">BASE DE CONHECIMENTO</div>
+                <h1>Contexto começa aqui.</h1>
+                <p>
+                  Documentos da sua organização, versionados e recuperáveis.
+                </p>
+              </div>
+            </div>
+            <div class="content-columns">
+              <section class="surface panel">
+                <div class="section-label">
+                  <atlas-icon name="file" />
+                  <h2>Seus documentos</h2>
+                  <span class="count">{{ state().documents.length }}</span>
+                </div>
+                @if (state().documents.length) {
+                  <div class="record-list">
+                    @for (document of state().documents; track document.id) {
+                      <article class="record">
+                        <span class="record-icon"
+                          ><atlas-icon name="file"
+                        /></span>
+                        <div>
+                          <h3>{{ document.title }}</h3>
+                          <p>
+                            Versão {{ document.version }} ·
+                            {{ date(document.created_at) }}
+                          </p>
+                          <code>{{ document.id.slice(0, 12) }}</code>
+                        </div>
+                        <button
+                          class="quiet danger-quiet"
+                          [attr.aria-label]="'Excluir ' + document.title"
+                          [disabled]="state().busy"
+                          (click)="removeDocument(document.id, document.title)"
+                        >
+                          Excluir
+                        </button>
+                      </article>
+                    }
+                  </div>
+                } @else {
+                  <div class="empty">
+                    <span class="empty-icon"><atlas-icon name="file" /></span>
+                    <h3>Sua base está pronta para começar</h3>
+                    <p>
+                      Envie seu primeiro documento para fazer perguntas com
+                      evidências.
+                    </p>
+                  </div>
+                }
+              </section>
+              <form class="surface panel upload-panel" (ngSubmit)="upload()">
+                <span class="large-icon"><atlas-icon name="upload" /></span>
+                <h2>Adicionar conhecimento</h2>
+                <p>
+                  Texto simples ou Markdown em UTF-8. Até 1 MiB por arquivo.
+                </p>
+                <label
+                  >Título do documento<input
+                    name="documentTitle"
+                    placeholder="Ex.: Política de reembolso"
+                    [(ngModel)]="documentTitle"
+                    maxlength="200" /></label
+                ><label class="upload-target"
+                  >Arquivo do documento<input
+                    type="file"
+                    accept=".txt,.md,text/plain,text/markdown"
+                    (change)="fileChanged($event)"
+                    required /></label
+                ><button
+                  class="primary wide"
+                  [disabled]="state().busy || !documentFile"
+                >
+                  Enviar documento<atlas-icon name="upload" /></button
+                ><small
+                  >O backend valida, divide e indexa o conteúdo. Documentos são
+                  dados, nunca instruções de autorização.</small
+                >
+              </form>
+            </div>
+          }
+          @case ('approvals') {
+            <div class="page-heading">
+              <div>
+                <div class="eyebrow">VOCÊ NO CONTROLE</div>
+                <h1>Ações com responsabilidade.</h1>
+                <p>Confira a operação e seus argumentos antes de autorizar.</p>
+              </div>
+            </div>
+            <div class="content-columns">
+              <section class="surface panel">
+                <div class="section-label">
+                  <atlas-icon name="shield" />
+                  <h2>Aprovações</h2>
+                </div>
+                @for (approval of state().approvals; track approval.id) {
+                  <article class="approval-card">
+                    <div class="approval-head">
+                      <h3>{{ approval.action }}</h3>
+                      <span [class]="'status ' + approval.status">{{
+                        statusLabel(approval.status)
+                      }}</span>
+                    </div>
+                    <pre>{{ json(approval.arguments) }}</pre>
+                    <small
+                      >Execução {{ approval.run_id.slice(0, 12) }} · ação
+                      vinculada no servidor</small
+                    >
+                    @if (approval.status === 'pending') {
+                      <div class="button-row">
+                        <button
+                          class="primary"
+                          [disabled]="state().busy"
+                          (click)="store.decide(approval.id, 'approve')"
+                        >
+                          <atlas-icon name="check" />Aprovar ação</button
+                        ><button
+                          class="secondary"
+                          [disabled]="state().busy"
+                          (click)="store.decide(approval.id, 'reject')"
+                        >
+                          Rejeitar ação
+                        </button>
+                      </div>
+                    }
+                  </article>
+                } @empty {
+                  <div class="empty">
+                    <span class="empty-icon"><atlas-icon name="shield" /></span>
+                    <h3>Nenhuma ação para revisar</h3>
+                    <p>
+                      No workspace, use “/ticket título” com a estratégia Agente
+                      para preparar uma operação local.
+                    </p>
+                  </div>
+                }
+              </section>
+              <section class="surface panel">
+                <div class="section-label">
+                  <atlas-icon name="file" />
+                  <h2>Tickets persistidos</h2>
+                  <span class="count">{{ state().tickets.length }}</span>
+                </div>
+                @for (ticket of state().tickets; track ticket.id) {
+                  <article class="ticket">
+                    <h3>{{ ticket.title }}</h3>
+                    <span class="status">{{ statusLabel(ticket.status) }}</span>
+                    <p>{{ date(ticket.created_at) }}</p>
+                    <code>{{ ticket.id }}</code>
+                  </article>
+                } @empty {
+                  <p class="muted">
+                    Os tickets criados após aprovação aparecem aqui.
+                  </p>
+                }
+              </section>
+            </div>
+          }
+          @case ('history') {
+            <div class="page-heading">
+              <div>
+                <div class="eyebrow">HISTÓRICO AUDITÁVEL</div>
+                <h1>Cada execução conta.</h1>
+                <p>
+                  Reabra respostas, compare estratégias e inspecione o que
+                  aconteceu.
+                </p>
+              </div>
+            </div>
+            <section class="surface panel">
+              @if (state().runs.length) {
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Pergunta</th>
+                        <th>Estratégia</th>
+                        <th>Estado</th>
+                        <th>Tokens</th>
+                        <th>Custo (USD)</th>
+                        <th>Latência</th>
+                        <th>Abrir</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (item of state().runs; track item.id) {
+                        <tr>
+                          <td>
+                            <strong>{{ item.question }}</strong
+                            ><code>{{ item.id.slice(0, 12) }}</code>
+                          </td>
+                          <td>{{ item.strategy }}</td>
+                          <td>
+                            <span [class]="'status ' + item.status">{{
+                              statusLabel(item.status)
+                            }}</span>
+                          </td>
+                          <td>
+                            {{
+                              item.usage
+                                ? number(
+                                    item.usage.input_tokens +
+                                      item.usage.output_tokens
+                                  )
+                                : '—'
+                            }}
+                          </td>
+                          <td>{{ money(item.usage?.cost_usd) }}</td>
+                          <td>
+                            {{
+                              item.latency_ms == null
+                                ? '—'
+                                : number(item.latency_ms) + ' ms'
+                            }}
+                          </td>
+                          <td>
+                            <button
+                              class="quiet"
+                              [attr.aria-label]="'Abrir execução ' + item.id"
+                              (click)="selectRun(item.id)"
+                            >
+                              <atlas-icon name="arrow" />
+                            </button>
+                          </td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              } @else {
+                <div class="empty">
+                  <span class="empty-icon"><atlas-icon name="clock" /></span>
+                  <h3>Sua jornada começa com uma pergunta</h3>
+                  <p>As execuções da organização serão listadas aqui.</p>
+                </div>
+              }
+            </section>
+          }
+          @case ('usage') {
+            <div class="page-heading">
+              <div>
+                <div class="eyebrow">AI FINOPS</div>
+                <h1>Consumo sob controle.</h1>
+                <p>
+                  Consumo registrado pela API, atribuído à organização atual.
+                </p>
+              </div>
+            </div>
+            <div class="stats-grid">
+              <div class="stat">
+                <span>Tokens de entrada</span
+                ><strong>{{ number(state().usage?.input_tokens) }}</strong
+                ><small>Contexto enviado ao modelo</small>
+              </div>
+              <div class="stat">
+                <span>Tokens de saída</span
+                ><strong>{{ number(state().usage?.output_tokens) }}</strong
+                ><small>Conteúdo gerado</small>
+              </div>
+              <div class="stat">
+                <span>Custo registrado</span
+                ><strong>{{ money(state().usage?.cost_usd) }}</strong
+                ><small>USD · estimativa do gateway</small>
+              </div>
+              <div class="stat">
+                <span>Execuções</span
+                ><strong>{{ number(state().usage?.runs) }}</strong
+                ><small>Registro persistido do tenant</small>
+              </div>
+              <div class="stat">
+                <span>Conclusões operacionais</span
+                ><strong>{{ number(state().usage?.successful_runs) }}</strong
+                ><small>Execuções concluídas pela API</small>
+              </div>
+              <div class="stat">
+                <span>Custo por tarefa concluída</span
+                ><strong>{{
+                  money(state().usage?.cost_per_success_usd)
+                }}</strong
+                ><small>Custo total ÷ conclusões</small>
+              </div>
+            </div>
+            <section class="surface panel">
+              <h2>Leia o consumo no contexto.</h2>
+              <p>
+                O custo por tarefa concluída inclui os custos de falhas no
+                total. “—” indica nenhuma conclusão ou métrica indisponível.
+                Conclusão operacional não mede a qualidade da resposta.
+              </p>
+              <p>
+                O modo determinístico valida a engenharia, mas não comprova
+                inferência de um provedor real. Um custo de zero pode
+                representar esse modo.
+              </p>
+              <div class="mode-banner">
+                <atlas-icon name="chart" />
+                <div>
+                  <strong
+                    >Modo informado pela API:
+                    {{ state().health?.mode ?? 'indisponível' }}</strong
+                  >
+                  <p>
+                    Preços, limites e contabilidade são aplicados no servidor.
+                    Compare estes registros com a cobrança do provedor.
+                  </p>
+                </div>
+              </div>
+              <h3>Reservas e operações em andamento</h3>
+              <p>
+                Reservas bloqueiam novas admissões enquanto uma chamada está em
+                andamento ou seu consumo é ambíguo. Não são cobrança confirmada.
+              </p>
+              <dl class="limit-list" aria-label="Reservas do tenant">
+                <div>
+                  <dt>Execuções ativas</dt>
+                  <dd>{{ number(state().usage?.active_runs) }}</dd>
+                </div>
+                <div>
+                  <dt>Tokens reservados</dt>
+                  <dd>{{ number(state().usage?.reserved_tokens) }}</dd>
+                </div>
+                <div>
+                  <dt>Custo reservado</dt>
+                  <dd>{{ money(state().usage?.reserved_cost_usd) }}</dd>
+                </div>
+              </dl>
+              <h3>Limites configurados</h3>
+              <dl class="limit-list">
+                @for (entry of savedLimits(); track entry[0]) {
+                  <div>
+                    <dt>{{ settingLabels[entry[0]] ?? entry[0] }}</dt>
+                    <dd>
+                      {{
+                        entry[0].includes('usd')
+                          ? money(entry[1])
+                          : number(entry[1])
+                      }}
+                    </dd>
+                  </div>
+                }
+              </dl>
+            </section>
+          }
+          @case ('settings') {
+            <div class="page-heading">
+              <div>
+                <div class="eyebrow">GOVERNANÇA DO WORKSPACE</div>
+                <h1>Limites explícitos.</h1>
+                <p>
+                  A API é a autoridade para orçamento, chamadas e concorrência.
+                </p>
+              </div>
+            </div>
+            <form class="surface panel" (ngSubmit)="saveLimits()">
+              <div class="settings-grid">
+                @for (entry of limitEntries(); track entry[0]) {
+                  <label
+                    >{{ settingLabels[entry[0]] ?? entry[0]
+                    }}<input
+                      type="number"
+                      min="0"
+                      [step]="entry[0].includes('usd') ? '0.001' : '1'"
+                      [(ngModel)]="draftLimits[entry[0]]"
+                      [name]="entry[0]"
+                      [disabled]="state().session?.role !== 'admin'"
+                      required
+                    /><code>{{ entry[0] }}</code></label
+                  >
+                }
+              </div>
+              <div class="button-row">
+                <button
+                  class="primary"
+                  [disabled]="
+                    state().busy ||
+                    state().session?.role !== 'admin' ||
+                    !limitEntries().length
+                  "
+                >
+                  Salvar limites</button
+                ><small
+                  >Somente administradores. Validação e aplicação ocorrem no
+                  servidor.</small
+                >
+              </div>
+            </form>
+          }
+        }
+        <footer class="content-footer">
+          <span>ATLAS <span class="muted">/ Knowledge & Operations</span></span
+          ><span>Contexto. Evidência. Controle.</span>
+        </footer>
+      </main>
+    </div>
+  </div>
+}
